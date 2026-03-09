@@ -1,0 +1,53 @@
+{
+  "source": "your-source-name",
+  "documentsAnalyzed": 0,
+  "entities": [
+    {
+      "name": "Example Entity",
+      "kind": "person",
+      "mentions": 5,
+      "significance": "Description of why this entity matters in your cognitive landscape."
+    }
+  ],
+  "themes": [
+    {
+      "label": "Example Theme",
+      "relevance": 0.75,
+      "keywords": ["keyword1", "keyword2"],
+      "dimension": "Psychological"
+    }
+  ],
+  "emotionalTone": {
+    "valence": 0.6,
+    "arousal": 0.5,
+    "dominantEmotion": "curiosity",
+    "secondaryEmotions": ["determination", "wonder"]
+  },
+  "cognitivePatterns": [
+    {
+      "label": "Example Pattern",
+      "kind": "systematic",
+      "confidence": 0.7,
+      "evidence": "Observable behavioral evidence for this pattern."
+    }
+  ],
+  "selfSabotageIndicators": [],
+  "projections": [],
+  "cycles": [],
+  "potentials": [
+    {
+      "label": "Example Potential",
+      "state": "Emerging",
+      "description": "Description of an unrealized capacity.",
+      "confidence": 0.65
+    }
+  ],
+  "dimensionalScores": {
+    "Psychological": { "depth": 3, "score": 0.7, "keyFindings": ["Finding 1"] },
+    "Spiritual": { "depth": 2, "score": 0.5 },
+    "Anthropological": { "depth": 2, "score": 0.55 },
+    "Social": { "depth": 1, "score": 0.45 },
+    "Creative": { "depth": 2, "score": 0.6 },
+    "Professional": { "depth": 3, "score": 0.8 }
+  }
+}

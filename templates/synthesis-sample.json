@@ -1,0 +1,85 @@
+{
+  "@context": "https://psyche-os.dev/pkkg/v0.1",
+  "@type": "UnifiedPsycheSynthesis",
+  "subject": "PSYCHE/OS Sample Analysis",
+  "sourcesAnalyzed": {
+    "source1": 0,
+    "source2": 0,
+    "totalDocuments": 0
+  },
+  "generatedAt": "2026-01-01T00:00:00Z",
+  "simulacrumIndex": 0.65,
+  "simulacrumNote": "This analysis is a computational hypothesis based on digital traces. The map is not the territory.",
+
+  "crossValidatedPatterns": [
+    {
+      "id": "CVP-001",
+      "label": "Example Cross-Validated Pattern",
+      "confidence": 0.8,
+      "sources": ["source1", "source2"],
+      "evidence": {
+        "source1": "Evidence from first source.",
+        "source2": "Corroborating evidence from second source."
+      },
+      "psychologicalInterpretation": "Psychological interpretation of this pattern.",
+      "dimension": "Psychological",
+      "archetypeResonance": ["Hero"]
+    }
+  ],
+
+  "archetypeMapping": {
+    "dominant": {
+      "archetype": "The Builder",
+      "manifestation": "How this archetype manifests in behavior.",
+      "shadow": "The shadow aspect of this archetype.",
+      "confidence": 0.8
+    },
+    "secondary": {
+      "archetype": "The Seeker",
+      "manifestation": "Secondary archetype manifestation.",
+      "shadow": "Shadow of secondary archetype.",
+      "confidence": 0.7
+    },
+    "emergent": {
+      "archetype": "The Creator",
+      "manifestation": "Emerging archetype.",
+      "shadow": "Emergent shadow.",
+      "confidence": 0.6
+    },
+    "goldenShadow": {
+      "archetype": "The Writer",
+      "manifestation": "Unlived potential.",
+      "shadow": "Fear of vulnerability.",
+      "confidence": 0.75
+    }
+  },
+
+  "unifiedDimensionalScores": {
+    "Psychological": { "score": 0.7, "convergence": "Agreement across sources.", "blindSpot": "What is not being seen." },
+    "Spiritual": { "score": 0.5, "convergence": "Source agreement.", "blindSpot": "Blind spot." },
+    "Anthropological": { "score": 0.55, "convergence": "Agreement.", "blindSpot": "Blind spot." },
+    "Social": { "score": 0.45, "convergence": "Agreement.", "blindSpot": "Blind spot." },
+    "Creative": { "score": 0.6, "convergence": "Agreement.", "blindSpot": "Blind spot." },
+    "Professional": { "score": 0.8, "convergence": "Agreement.", "blindSpot": "Blind spot." }
+  },
+
+  "topPotentials": [
+    {
+      "rank": 1,
+      "label": "Example Potential",
+      "state": "Emerging",
+      "confidence": 0.8,
+      "crossSourceValidation": "Source1 (evidence) + Source2 (corroboration)",
+      "description": "Description of this potential.",
+      "actionable": "Concrete next step to develop this potential."
+    }
+  ],
+
+  "narrativeArc": {
+    "currentChapter": "The Current Phase",
+    "description": "Description of current life chapter.",
+    "previousChapters": ["Chapter 1", "Chapter 2"],
+    "tensionPoint": "The central tension being navigated.",
+    "possibleResolutions": ["Resolution path 1", "Resolution path 2"]
+  }
+}

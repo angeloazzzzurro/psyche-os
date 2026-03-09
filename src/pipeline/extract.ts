@@ -1,0 +1,121 @@
+import { z } from "zod";
+import type { SourceDocument } from "./ingest.js";
+
+// ---------------------------------------------------------------------------
+// Extraction result schemas
+// ---------------------------------------------------------------------------
+
+export const ExtractedEntitySchema = z.object({
+  name: z.string(),
+  kind: z.enum(["Person", "Concept", "Tool", "Place", "Project"]),
+  mentions: z.number().int().nonnegative(),
+});
+
+export type ExtractedEntity = z.infer<typeof ExtractedEntitySchema>;
+
+export const ThemeSchema = z.object({
+  label: z.string(),
+  relevance: z.number().min(0).max(1),
+  keywords: z.array(z.string()),
+});
+
+export type Theme = z.infer<typeof ThemeSchema>;
+
+export const EmotionalToneSchema = z.object({
+  valence: z.number().min(-1).max(1),
+  arousal: z.number().min(0).max(1),
+  dominantEmotion: z.string(),
+  secondaryEmotions: z.array(z.string()),
+});
+
+export type EmotionalTone = z.infer<typeof EmotionalToneSchema>;
+
+export const CognitivePatternSchema = z.object({
+  label: z.string(),
+  kind: z.enum([
+    "analytical",
+    "intuitive",
+    "systematic",
+    "divergent",
+    "convergent",
+    "metacognitive",
+  ]),
+  confidence: z.number().min(0).max(1),
+  evidence: z.string(),
+});
+
+export type CognitivePattern = z.infer<typeof CognitivePatternSchema>;
+
+export const ExtractionResultSchema = z.object({
+  sourceId: z.string(),
+  entities: z.array(ExtractedEntitySchema),
+  themes: z.array(ThemeSchema),
+  emotionalTone: EmotionalToneSchema.optional(),
+  cognitivePatterns: z.array(CognitivePatternSchema),
+  rawAnalysis: z.string().optional(),
+  timestamp: z.string().datetime(),
+});
+
+export type ExtractionResult = z.infer<typeof ExtractionResultSchema>;
+
+// ---------------------------------------------------------------------------
+// Extraction function
+// ---------------------------------------------------------------------------
+
+/**
+ * Extract semantic content from a source document using Claude API.
+ *
+ * This is a stub that returns an empty extraction result.
+ * Future implementation will call the Claude API with a structured prompt
+ * and validate the response against ExtractionResultSchema.
+ *
+ * @param document - The source document to analyze
+ * @param _apiKey - Claude API key (unused in stub)
+ * @returns Structured extraction result
+ */
+export async function extractSemantics(
+  document: SourceDocument,
+  _apiKey?: string
+): Promise<ExtractionResult> {
+  // TODO: Implement Claude API call with structured output
+  // The prompt should ask Claude to:
+  // 1. Identify entities (people, concepts, tools, places, projects)
+  // 2. Extract themes with relevance scores
+  // 3. Assess emotional tone (valence, arousal, dominant emotion)
+  // 4. Detect cognitive patterns with evidence
+
+  return ExtractionResultSchema.parse({
+    sourceId: document.id,
+    entities: [],
+    themes: [],
+    cognitivePatterns: [],
+    timestamp: new Date().toISOString(),
+  });
+}
+
+/**
+ * Extract semantics from multiple documents in batch.
+ * @param documents - Array of source documents
+ * @param apiKey - Claude API key
+ * @returns Array of extraction results
+ */
+export async function extractBatch(
+  documents: readonly SourceDocument[],
+  apiKey?: string
+): Promise<ExtractionResult[]> {
+  const results: ExtractionResult[] = [];
+
+  for (const doc of documents) {
+    try {
+      const result = await extractSemantics(doc, apiKey);
+      results.push(result);
+    } catch (err) {
+      console.error(
+        `[extract] Failed to extract from ${doc.id}:`,
+        err instanceof Error ? err.message : String(err)
+      );
+    }
+  }
+
+  return results;
+}

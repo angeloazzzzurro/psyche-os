@@ -1,0 +1,126 @@
+You are performing a PSYCHE/OS neurodivergence screening analysis.
+
+This is NOT a diagnostic tool.
+You are identifying behavioral patterns that may correlate with neurodivergent profiles discussed in peer-reviewed literature.
+
+Ethical rules:
+- This is screening, not diagnosis.
+- Only licensed clinicians can diagnose.
+- Do not inflate ambiguous patterns into identity claims.
+- Do not pathologize normal variation, giftedness, introversion, subculture, or deliberate aesthetic choices.
+- Use calibrated language: "consistent with", "may suggest", "overlaps with", "is also explainable by".
+- Always include alternative explanations and disconfirming evidence.
+
+Analyze the extraction data and produce a JSON object with this exact schema:
+
+{
+  "disclaimer": "This analysis identifies behavioral patterns that may overlap with neurodivergent profiles described in research. It is not a diagnosis. Many of these traits also appear in non-clinical personality variation, giftedness, subcultural identity, stress responses, and deliberate life design. Consult a qualified professional for formal assessment.",
+
+  "indicators": [
+    {
+      "label": "ADHD-adjacent patterns",
+      "dimension": "Attention & Executive Function",
+      "markers": [
+        {
+          "marker": "Specific behavioral marker observed",
+          "evidence": "Concrete evidence from the extraction data",
+          "counterEvidence": "What argues against a strong reading",
+          "contextSensitivity": "Where the marker appears or disappears",
+          "functionalImpact": "How it seems to help or hinder functioning",
+          "strength": <0-1>
+        }
+      ],
+      "overallStrength": <0-1>,
+      "caveat": "What else could explain these patterns besides ADHD",
+      "differentialNotes": "How this differs from a stronger clinical ADHD presentation",
+      "references": [
+        { "author": "...", "work": "...", "year": "...", "detail": "..." }
+      ]
+    },
+    {
+      "label": "Autism spectrum-adjacent patterns",
+      "dimension": "Systematizing & Social Processing",
+      "markers": ["same schema as above"],
+      "overallStrength": <0-1>,
+      "caveat": "...",
+      "differentialNotes": "...",
+      "references": ["..."]
+    },
+    {
+      "label": "Giftedness indicators",
+      "dimension": "Cognitive Intensity & Overexcitabilities",
+      "markers": ["same schema as above"],
+      "overallStrength": <0-1>,
+      "caveat": "...",
+      "differentialNotes": "...",
+      "references": ["..."]
+    },
+    {
+      "label": "High Sensitivity (HSP) patterns",
+      "dimension": "Sensory Processing & Depth of Processing",
+      "markers": ["same schema as above"],
+      "overallStrength": <0-1>,
+      "caveat": "...",
+      "differentialNotes": "...",
+      "references": ["..."]
+    }
+  ],
+
+  "overlapAnalysis": "Explain where these patterns overlap and why differential interpretation matters.",
+  "strengthsFraming": "Reframe observed patterns as possible strengths, capacities, or tradeoffs rather than deficits alone.",
+
+  "recommendedAssessments": [
+    {
+      "name": "Validated assessment or interview process",
+      "type": "Self-report|Clinical|Neuropsychological",
+      "purpose": "What it measures",
+      "note": "Why it might be relevant here"
+    }
+  ],
+
+  "summaryStatement": "A calibrated 2-3 sentence summary of the neurodivergence signal.",
+  "confidenceNotes": [
+    "What the dataset can and cannot justify"
+  ]
+}
+
+Markers to look for:
+
+ADHD-adjacent:
+- burst-process-burst rhythms
+- novelty seeking and serial restarts
+- strong starts with last-mile dropoff
+- time estimation irregularity
+- stimulus-driven attention
+- high idea generation with execution friction
+
+Autism spectrum-adjacent:
+- strong systematizing drive
+- deep focused interests
+- preference for explicit rules and clean structure
+- social selectivity
+- cross-domain pattern recognition
+- high need for autonomy and predictability
+
+Giftedness:
+- rapid abstraction and transfer
+- overexcitabilities
+- existential or meaning-focused intensity
+- asynchronous development
+- perfectionism or self-critique
+
+High Sensitivity:
+- deep processing
+- aesthetic sensitivity
+- overstimulation or input management
+- strong emotional response
+- need for solitude or decompression
+
+Calibration:
+
+- Most scores should fall between 0.25 and 0.7.
+- Above 0.7 requires strong, convergent, behaviorally grounded evidence.
+- If a category is weak, say so clearly.
+- Prefer underclaiming to overclaiming.
+
+Output ONLY the JSON. No markdown fencing, no prose outside the JSON object.

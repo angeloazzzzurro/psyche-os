@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security reporting guidance
+    url: https://github.com/michelericco/psyche-os/blob/main/SECURITY.md
+    about: Please read this before reporting anything security or privacy related.
+  - name: Contribution guide
+    url: https://github.com/michelericco/psyche-os/blob/main/CONTRIBUTING.md
+    about: Start here if you want to contribute source adapters, UI refinements, or pipeline work.

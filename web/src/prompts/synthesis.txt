@@ -1,0 +1,157 @@
+You are performing the PSYCHE/OS cross-source synthesis.
+
+Input:
+- multiple extraction outputs from distinct source families
+
+Goal:
+- isolate what is truly cross-validated
+- distinguish stable structure from source-specific noise
+- calculate a directional vector that describes where the profile is coherently trying to move
+
+Produce a single JSON object with this exact schema:
+
+{
+  "crossValidatedPatterns": [
+    {
+      "id": "CVP-001",
+      "label": "...",
+      "confidence": <0-1>,
+      "sources": ["claude-sessions", "codex-sessions", "social-traces"],
+      "evidence": {
+        "claude-sessions": "Evidence from this source",
+        "codex-sessions": "Evidence from this source",
+        "social-traces": "Evidence from this source"
+      },
+      "psychologicalInterpretation": "What this pattern means psychologically",
+      "dimension": "Psychological|Spiritual|Anthropological|Social|Creative|Professional",
+      "archetypeResonance": ["..."],
+      "counterPressure": "What resists or complicates this pattern"
+    }
+  ],
+
+  "archetypeMapping": {
+    "dominant": { "archetype": "...", "manifestation": "...", "shadow": "...", "confidence": <0-1>, "evidence": "..." },
+    "secondary": { "archetype": "...", "manifestation": "...", "shadow": "...", "confidence": <0-1>, "evidence": "..." },
+    "emergent": { "archetype": "...", "manifestation": "...", "shadow": "...", "confidence": <0-1>, "evidence": "..." },
+    "goldenShadow": { "archetype": "...", "manifestation": "...", "shadow": "...", "confidence": <0-1>, "evidence": "..." }
+  },
+
+  "unifiedDimensionalScores": {
+    "Psychological": { "depth": <0-1>, "score": <0-1>, "keyFindings": ["..."], "convergence": "...", "blindSpot": "..." },
+    "Spiritual": { "depth": <0-1>, "score": <0-1>, "keyFindings": ["..."], "convergence": "...", "blindSpot": "..." },
+    "Anthropological": { "depth": <0-1>, "score": <0-1>, "keyFindings": ["..."], "convergence": "...", "blindSpot": "..." },
+    "Social": { "depth": <0-1>, "score": <0-1>, "keyFindings": ["..."], "convergence": "...", "blindSpot": "..." },
+    "Creative": { "depth": <0-1>, "score": <0-1>, "keyFindings": ["..."], "convergence": "...", "blindSpot": "..." },
+    "Professional": { "depth": <0-1>, "score": <0-1>, "keyFindings": ["..."], "convergence": "...", "blindSpot": "..." }
+  },
+
+  "topPotentials": [
+    {
+      "rank": 1,
+      "label": "...",
+      "state": "Expressed|Emerging|Latent|Sabotaged",
+      "description": "...",
+      "confidence": <0-1>,
+      "crossSourceValidation": "How multiple sources confirm this",
+      "actionable": "Concrete leverage surface, not motivational advice"
+    }
+  ],
+
+  "narrativeArc": {
+    "currentChapter": "...",
+    "description": "...",
+    "previousChapters": ["..."],
+    "tensionPoint": "...",
+    "possibleResolutions": ["..."]
+  },
+
+  "directionalVector": {
+    "summary": "Short synthesis of the main direction of travel",
+    "coordinateSystem": "Each axis runs from -1.0 at the left pole to +1.0 at the right pole. 'current' is where the profile appears to sit now. 'recommendedDrift' is the evidence-based direction of movement, not generic advice.",
+    "axes": [
+      {
+        "axis": "Exploration <-> Consolidation",
+        "leftPole": "open exploration, option generation, restarting",
+        "rightPole": "closure, shipping, embodied consolidation",
+        "current": <-1 to 1>,
+        "recommendedDrift": <-1 to 1>,
+        "rationale": "...",
+        "evidence": ["..."]
+      },
+      {
+        "axis": "Interiority <-> Publication",
+        "leftPole": "private incubation, internal richness, low external proof",
+        "rightPole": "public articulation, publication, visible artifacts",
+        "current": <-1 to 1>,
+        "recommendedDrift": <-1 to 1>,
+        "rationale": "...",
+        "evidence": ["..."]
+      },
+      {
+        "axis": "Abstraction <-> Embodiment",
+        "leftPole": "conceptual modeling and symbolic interpretation",
+        "rightPole": "implementation in body, routine, environment, and finished artifact",
+        "current": <-1 to 1>,
+        "recommendedDrift": <-1 to 1>,
+        "rationale": "...",
+        "evidence": ["..."]
+      },
+      {
+        "axis": "Autonomy <-> Alliance",
+        "leftPole": "full sovereignty and self-direction",
+        "rightPole": "selective alliance, collaborative amplification, co-regulation",
+        "current": <-1 to 1>,
+        "recommendedDrift": <-1 to 1>,
+        "rationale": "...",
+        "evidence": ["..."]
+      },
+      {
+        "axis": "Input <-> Expression",
+        "leftPole": "intake, research, observation, accumulation",
+        "rightPole": "expression, articulation, distribution, release",
+        "current": <-1 to 1>,
+        "recommendedDrift": <-1 to 1>,
+        "rationale": "...",
+        "evidence": ["..."]
+      }
+    ],
+    "heading": {
+      "from": "...",
+      "toward": "...",
+      "through": "...",
+      "confidence": <0-1>,
+      "justification": "Why this is the strongest coherent direction"
+    },
+    "constraints": ["real structural constraints, not generic cautions"],
+    "attractors": ["what repeatedly pulls the profile forward"],
+    "antiVectors": ["plausible directions that would waste or distort the signal"],
+    "nextExperimentSurfaces": [
+      {
+        "surface": "Artifact|Body|Relationship|Environment|Workflow|Public Interface",
+        "whyThisSurface": "...",
+        "successSignal": "...",
+        "failureSignal": "..."
+      }
+    ]
+  },
+
+  "modelLimitations": [
+    "where the synthesis may still be underdetermined, biased, or too dependent on the available sources"
+  ],
+
+  "simulacrumIndex": <0-1>
+}
+
+Rules:
+
+- Only include patterns validated by 2 or more sources.
+- Higher confidence requires convergence across source families, not repetition inside one source.
+- Preserve contradictions. A good synthesis should explain both the pattern and what resists it.
+- Use Jungian language carefully: archetypes must remain grounded in behavior, not aesthetic projection.
+- The directional vector is not cheap advice. It should name the direction that the evidence already implies.
+- Avoid self-help slogans, productivity clichés, and therapy-speak.
+- Calibrate honestly. Most scores should fall between 0.35 and 0.8.
+- If the sources are too thin to justify a strong vector, say so in directionalVector.summary and modelLimitations.
+- simulacrumIndex: 0 means the model seems tightly grounded; 1 means it looks mostly like projection or over-interpretation.
+
+Output ONLY the JSON. No markdown fencing, no prose outside the JSON object.

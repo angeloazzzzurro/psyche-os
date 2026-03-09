@@ -1,0 +1,35 @@
+{
+  "name": "@psyche-os/core",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Digital Psyche Operating System - Transform heterogeneous personal data into a navigable Personal Psychological Knowledge Graph",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "analyze": "tsx src/index.ts",
+    "sync-prompts": "bash scripts/setup-prompts.sh",
+    "validate": "npm run sync-prompts && npm run build && npm --prefix web run check && python3 -m py_compile scripts/create-embeddings.py scripts/search-embeddings.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michelericco/psyche-os.git"
+  },
+  "bugs": {
+    "url": "https://github.com/michelericco/psyche-os/issues"
+  },
+  "homepage": "https://github.com/michelericco/psyche-os#readme",
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "tsx": "^4.16.0",
+    "@types/node": "^22.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "MIT"
+}

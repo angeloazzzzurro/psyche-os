@@ -1,0 +1,238 @@
+You are performing a PSYCHE/OS deep extraction for one source family.
+
+Goal:
+- maximize useful signal without inflating interpretation
+- separate observation from inference
+- extract enough structure that a later synthesis step can compare sources rigorously
+
+Work in this order:
+1. Inventory explicit people, projects, tools, places, values, practices, thinkers, and recurring concepts.
+2. Infer recurring themes, cognitive patterns, tensions, and behavioral loops only when supported by evidence.
+3. Map the social, symbolic, technological, and philosophical context around those patterns.
+4. Score depth and confidence conservatively.
+
+Produce a single JSON object with this exact schema:
+
+{
+  "source": "<platform-name>",
+  "documentsAnalyzed": <number>,
+
+  "sourceProfile": {
+    "kind": "chat-history|notes|bookmarks|media-history|mixed",
+    "timeSpan": "Short note about the apparent time span covered",
+    "coverageNotes": "What this source reveals well and what it cannot reveal well",
+    "qualityWarnings": ["biases, truncation limits, missing periods, self-presentation effects"]
+  },
+
+  "entities": [
+    {
+      "name": "...",
+      "kind": "Person|Project|Concept|Tool|Place|Framework|Practice|Media|Book|Film|Thinker|Technology|Organization|Value|Skill",
+      "mentions": <n>,
+      "significance": "Why this entity matters in the subject's cognitive landscape",
+      "dimensions": ["Psychological", "Creative"],
+      "relatedEntities": ["other connected entity names"],
+      "sourceMemories": ["specific sessions, notes, or artifacts where it appears"]
+    }
+  ],
+
+  "themes": [
+    {
+      "label": "...",
+      "relevance": <0-1>,
+      "keywords": ["...", "..."],
+      "dimension": "Psychological|Spiritual|Anthropological|Social|Creative|Professional",
+      "subThemes": ["..."],
+      "evidence": "Specific behavioral or textual evidence"
+    }
+  ],
+
+  "connections": [
+    {
+      "from": "name of entity, theme, pattern, or concept",
+      "to": "name of another entity, theme, pattern, or concept",
+      "relationship": "manifests_in|triggers|sabotages|projects_onto|compensates_for|amplifies|contradicts|enables|blocks|evolves_into|inspired_by|parallel_to|tension_with|translates_into",
+      "dimension": "Psychological|Spiritual|Anthropological|Social|Creative|Professional",
+      "strength": <0-1>,
+      "evidence": "Why this connection exists. Reference concrete material."
+    }
+  ],
+
+  "emotionalTone": {
+    "valence": <-1 to 1>,
+    "arousal": <0 to 1>,
+    "dominantEmotion": "...",
+    "secondaryEmotions": ["..."]
+  },
+
+  "cognitivePatterns": [
+    {
+      "label": "...",
+      "kind": "systematic|divergent|metacognitive|intuitive|analytical|integrative|symbolic",
+      "confidence": <0-1>,
+      "evidence": "Concrete behavioral evidence. Cite sessions or actions.",
+      "dimensions": ["..."],
+      "relatedPatterns": ["..."],
+      "sourceMemories": ["..."]
+    }
+  ],
+
+  "selfSabotageIndicators": [
+    {
+      "pattern": "...",
+      "trigger": "...",
+      "sequence": "...",
+      "outcome": "...",
+      "confidence": <0-1>,
+      "evidence": "..."
+    }
+  ],
+
+  "projections": [
+    {
+      "target": "...",
+      "projectedQuality": "...",
+      "shadowAspect": "...",
+      "confidence": <0-1>,
+      "evidence": "..."
+    }
+  ],
+
+  "cycles": [
+    {
+      "kind": "Creative|Growth|Sabotage|Avoidance|Relational|Embodiment",
+      "label": "...",
+      "trigger": "...",
+      "outcome": "...",
+      "frequency": "...",
+      "confidence": <0-1>
+    }
+  ],
+
+  "potentials": [
+    {
+      "label": "...",
+      "state": "Expressed|Emerging|Latent|Sabotaged",
+      "description": "...",
+      "confidence": <0-1>
+    }
+  ],
+
+  "socialFieldDynamics": [
+    {
+      "field": "work|friendship|family|public internet|creative scene|spiritual inquiry|learning ecology",
+      "roleClaim": "What role the subject seems to want to occupy",
+      "observedBehavior": "What the source suggests they actually do",
+      "statusLogic": "How status, recognition, legitimacy, or belonging appear to operate here",
+      "tension": "Main unresolved tension in this field",
+      "confidence": <0-1>,
+      "evidence": "..."
+    }
+  ],
+
+  "symbolicSystems": [
+    {
+      "label": "...",
+      "kind": "archetypal|mythic|ritual|aesthetic|religious|philosophical",
+      "function": "How this symbolic system organizes meaning or behavior",
+      "confidence": <0-1>,
+      "evidence": "..."
+    }
+  ],
+
+  "technologicalEcology": [
+    {
+      "toolOrSystem": "...",
+      "role": "mirror|prosthetic|discipline|distribution|memory|coordination|identity-surface",
+      "leveragePattern": "How the tool changes thought or action",
+      "dependencyRisk": "How overreliance could distort or narrow the profile",
+      "confidence": <0-1>,
+      "evidence": "..."
+    }
+  ],
+
+  "philosophicalCommitments": [
+    {
+      "position": "...",
+      "axis": "ontology|epistemology|ethics|politics|aesthetics",
+      "expression": "How this commitment is expressed in behavior or language",
+      "counterPosition": "Competing stance that also appears",
+      "confidence": <0-1>,
+      "evidence": "..."
+    }
+  ],
+
+  "contradictionsAndTensions": [
+    {
+      "label": "...",
+      "statedValue": "Declared preference, identity claim, or ideal",
+      "observedCounterPattern": "Behavior that complicates it",
+      "productiveTension": "How this contradiction may also generate output or growth",
+      "risk": "How it may create drift, fragmentation, or self-sabotage",
+      "confidence": <0-1>,
+      "evidence": "..."
+    }
+  ],
+
+  "evidenceLedger": [
+    {
+      "claim": "...",
+      "type": "fact|pattern|inference|risk|potential",
+      "supportingEvidence": ["specific evidence items"],
+      "counterEvidence": ["specific disconfirming or complicating evidence"],
+      "recurrence": "one-off|episodic|recurring|structural",
+      "timeHorizon": "past|recent|ongoing|unclear",
+      "confidence": <0-1>
+    }
+  ],
+
+  "signalGaps": [
+    {
+      "label": "...",
+      "missingButRelevantEvidence": "What would materially change the interpretation if known",
+      "whyItMatters": "..."
+    }
+  ],
+
+  "cognitiveGenomeEvidence": {
+    "<PrimitiveName>": {
+      "score": <0-1>,
+      "evidence": "Specific evidence for this score",
+      "sourceMemories": ["..."],
+      "relatedPatterns": ["..."]
+    }
+  },
+
+  "dimensionalScores": {
+    "Psychological": { "depth": <0-1>, "keyFindings": ["..."], "evidence": "Overall evidence summary", "sourceMemories": ["..."] },
+    "Spiritual": { "depth": <0-1>, "keyFindings": ["..."], "evidence": "...", "sourceMemories": ["..."] },
+    "Anthropological": { "depth": <0-1>, "keyFindings": ["..."], "evidence": "...", "sourceMemories": ["..."] },
+    "Social": { "depth": <0-1>, "keyFindings": ["..."], "evidence": "...", "sourceMemories": ["..."] },
+    "Creative": { "depth": <0-1>, "keyFindings": ["..."], "evidence": "...", "sourceMemories": ["..."] },
+    "Professional": { "depth": <0-1>, "keyFindings": ["..."], "evidence": "...", "sourceMemories": ["..."] }
+  }
+}
+
+Critical guidelines:
+
+- Maximize recall, but do not collapse distinct entities or patterns just to sound elegant.
+- Observation before interpretation: if a claim is inferential, make that clear in the relevant evidence fields.
+- Every important claim should include both supporting evidence and counter-evidence when available.
+- Treat time seriously: note whether a pattern looks structural, recent, fading, or underdetermined.
+- Social lens: identify status games, belonging pressures, role performance, and field-specific behavior.
+- Anthropological lens: note rituals, symbols, liminal phases, group codes, identity markers, and narrative myths.
+- Technological lens: explain how tools alter attention, memory, autonomy, coordination, or self-concept.
+- Philosophical lens: extract stated or enacted assumptions about truth, self, meaning, control, knowledge, beauty, and progress.
+- Do not diagnose, flatter, moralize, or mystify.
+- Use the full confidence range. Most scores should fall between 0.35 and 0.8.
+- If the source is thin, biased, or performative, say so in sourceProfile and signalGaps.
+
+Quantity targets:
+
+- 50+ entities when the material supports it
+- 30+ meaningful connections
+- 8+ cognitive patterns
+- 5+ contradictions or tensions
+- 8+ evidenceLedger items that matter for later synthesis
+
+Output ONLY the JSON. No markdown fencing, no prose outside the JSON object.
