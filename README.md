@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Experimental, typographic, privacy-aware, and openly evolving.
+  Experimental, typographic, privacy-aware, and evolving in public.
 </p>
 
 <p align="center">
@@ -19,11 +19,13 @@
 
 PSYCHE/OS reads exported chats, bookmarks, browsing traces, notes, and similar artifacts as structured evidence. It extracts recurring signals from each source, compares them across sources, and turns what survives into a map of patterns, tensions, archetypes, narrative structure, and directional potentials.
 
+The aim is not to romanticize personal data, but to make it readable with more care, structure, and agency than the usual profiling systems allow.
+
 The core idea is simple:
 
 - use data that already describes your behavior
 - inspect it locally instead of handing it to opaque systems
-- compute structure, not motivational fluff
+- compute structure, not generic self-help
 - move toward a directional vector, not a pile of generic advice
 
 > It does not diagnose. It maps.
@@ -36,7 +38,7 @@ PSYCHE/OS is three things at once:
 - a local pipeline for extraction, synthesis, and semantic search
 - a research surface for improving prompts, models, and source compatibility
 
-This repository is intentionally public before it is finished. The interface is already strong. The adapter layer, synthesis depth, and evaluation rigor are still being expanded in the open.
+This repository is public on purpose before it is finished. The interface already has a clear shape. The adapter layer, synthesis depth, and evaluation rigor are still being improved in the open.
 
 ## How It Works
 
@@ -56,7 +58,7 @@ In practice, that means:
 
 ## What You Get
 
-The project is designed to produce results that are inspectable, not mystical.
+The goal is to produce results you can inspect, question, and refine.
 
 Typical outputs include:
 
@@ -67,7 +69,7 @@ Typical outputs include:
 - a semantic map of entities, themes, and relationships
 - integration surfaces for prompts, export, and downstream tool use
 
-The intended end state is not a recommendation engine. It is a directional reading: a vector that summarizes where the life pattern appears to want to go when the strongest signals are compared side by side.
+The intended end state is not a recommendation engine. It is a directional reading: a vector that summarizes where the life pattern seems to want to go when the strongest signals are compared side by side.
 
 ## Current Interface
 
@@ -103,7 +105,7 @@ Supported or partially supported today:
 
 Compatibility is still under active development. The long-term shape of the project assumes many more sources than the repo supports today, including notes, documents, tasks, repositories, quantified-self data, and additional chat/export formats.
 
-If a source can be exported, it can probably become a PSYCHE/OS adapter. That is one of the highest-value areas for community contribution.
+If a source can be exported, it can probably become a PSYCHE/OS adapter. Expanding that surface carefully is one of the highest-value areas for community contribution.
 
 ## Quick Start
 
@@ -138,7 +140,7 @@ npm run validate
 
 ## Running The Pipeline
 
-The public repo ships with a demo UI, but the pipeline scripts are already usable.
+The public repo ships with a demo UI, and the pipeline scripts are already usable if you want to try the local workflow end to end.
 
 Run the full local flow:
 
@@ -191,7 +193,7 @@ Project docs for that layer:
 
 ## Privacy And Safety
 
-This project deals with intensely personal material. Treat it that way.
+This project can touch intensely personal material. Please treat it with care.
 
 - Never commit `sources/`, `output/`, extraction dumps, chat logs, or generated profiles.
 - Never attach real personal datasets to GitHub issues or pull requests.
@@ -212,7 +214,7 @@ Contributions are welcome, especially in:
 - scientific grounding across psychology, sociology, anthropology, philosophy, and cognition
 - accessibility, performance, and UI refinement
 
-Start with [CONTRIBUTING.md](CONTRIBUTING.md).
+If you want to help, start with [CONTRIBUTING.md](CONTRIBUTING.md).
 Security reporting guidance lives in [SECURITY.md](SECURITY.md).
 Community expectations live in [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
@@ -233,4 +235,4 @@ What is still evolving:
 - directional-vector quality
 - broader compatibility across exported personal data
 
-That is exactly why the project is open now.
+That is why the project is open now: it already has a clear direction, and it will improve through careful use, critique, and contribution.
