@@ -97,14 +97,18 @@ The current UI includes:
 
 ## Supported Sources
 
-Supported or partially supported today:
+Supported sources, each with a dedicated `SourceAdapter`:
 
-- X/Twitter bookmarks via Siftly
-- selected Google Takeout exports, including useful YouTube traces such as watch history and `Watch Later` data when available in the export flow
-- long-form conversations with Claude.ai, ChatGPT, and Gemini through manual prompt handoff
-- Claude Code session histories
-- Codex CLI session histories
-- adjacent CLI and agent-session workflows that can be normalized into the same extraction format
+- **Claude Code** — JSONL session histories with conversation extraction and session metadata
+- **Codex CLI** — JSONL session histories with message parsing and CLI version tracking
+- **X/Twitter bookmarks** — Markdown exports (via Siftly) with topic classification and bookmark counts
+- **YouTube** — Markdown playlists and watch history from Google Takeout
+- **OpenClaw** — Local domain knowledge (openclaw-local) and hierarchical memory vault (openclaw-m1)
+
+Additional sources supported through manual prompt handoff:
+
+- Long-form conversations with Claude.ai, ChatGPT, and Gemini
+- Adjacent CLI and agent-session workflows that can be normalized into the extraction format
 
 Compatibility is still under active development. The long-term shape of the project assumes many more sources than the repo supports today, including notes, documents, tasks, repositories, quantified-self data, and additional chat/export formats.
 
@@ -182,7 +186,9 @@ High-signal directories:
 
 - `web/`: React dashboard
 - `scripts/`: extraction, synthesis, and embedding helpers
-- `src/`: TypeScript core pipeline scaffolding
+- `src/`: TypeScript core pipeline
+  - `src/pipeline/adapters/`: source-aware adapters (Claude Code, Codex, Twitter, YouTube, OpenClaw)
+- `tests/`: unit, integration, and E2E tests with fixtures
 - `docs/`: methodology, foundations, and deployment notes
 - `output/`: generated analysis artifacts, gitignored except for `.gitkeep`
 

@@ -22,10 +22,10 @@ This file is the reality check for the repository, not a pitch deck.
 ## Real But Still Evolving
 
 - Prompt quality, calibration, and cross-source synthesis depth
-- Source adapter compatibility and normalization
+- Prompt quality, calibration, and cross-source synthesis depth
 - Evaluation and regression testing for prompt outputs
 - Directional-vector quality and longitudinal usefulness
-- TypeScript core pipeline, which still contains scaffolded/stubbed logic in parts
+- TypeScript core pipeline: adapter layer complete (5 adapters, 547 docs); `extract.ts` and `patterns.ts` still stubbed
 
 ## Not Done
 
