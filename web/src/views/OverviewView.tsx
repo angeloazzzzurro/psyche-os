@@ -1,5 +1,5 @@
-import { extractions, crossValidatedPatterns, dimensionalScores } from '../data/loader'
-import { TwoCol, Cite, References } from '../components/shared'
+import { extractions, crossValidatedPatterns, dimensionalScores, simulacrumIndex, modelLimitations } from '../data/loader'
+import { TwoCol, Cite, References, Expandable } from '../components/shared'
 
 const CX = 300
 const CY = 300
@@ -27,14 +27,9 @@ const DIMENSIONS = [
   { label: 'Professional', angle: 210 },
 ]
 
-const DIMENSION_SCORES: Record<string, number> = {
-  Psychological: 0.82,
-  Spiritual: 0.76,
-  Anthropological: 0.60,
-  Social: 0.47,
-  Creative: 0.72,
-  Professional: 0.90,
-}
+const DIMENSION_SCORES: Record<string, number> = Object.fromEntries(
+  Object.entries(dimensionalScores).map(([k, v]) => [k, v.score ?? 0])
+)
 
 const LEVELS = [
   {
@@ -279,6 +274,47 @@ export default function OverviewView() {
           </div>
         }
       />
+
+      {/* Simulacrum Index + Model Limitations */}
+      <div className="border-t border-[color:var(--line)] pt-8 space-y-6">
+        <div className="flex items-baseline gap-6">
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[color:var(--ink-faint)]">
+              Simulacrum Index
+            </span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl font-light tabular-nums text-[color:var(--ink)]">
+                {(simulacrumIndex * 100).toFixed(0)}%
+              </span>
+              <span className="text-xs text-[color:var(--ink-faint)]">
+                {simulacrumIndex < 0.3 ? 'Low — profile reflects evidence, not projection' : simulacrumIndex < 0.6 ? 'Moderate — some interpretive drift' : 'High — treat with caution'}
+              </span>
+            </div>
+          </div>
+          <div className="flex-1 h-1.5 rounded-full bg-[color:var(--panel)] overflow-hidden">
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: `${simulacrumIndex * 100}%`,
+                backgroundColor: simulacrumIndex < 0.3 ? '#5f6e58' : simulacrumIndex < 0.6 ? '#a77c58' : '#9f4a34',
+              }}
+            />
+          </div>
+        </div>
+
+        {modelLimitations.length > 0 && (
+          <Expandable title="Model Limitations" summary={`${modelLimitations.length} caveats about this analysis`}>
+            <ul className="space-y-2">
+              {modelLimitations.map((limitation, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="text-[color:var(--accent)]/60 text-xs mt-0.5 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-xs text-[color:var(--ink-soft)] leading-relaxed">{limitation}</span>
+                </li>
+              ))}
+            </ul>
+          </Expandable>
+        )}
+      </div>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { SectionHead, Expandable, TwoCol, Cite, References, ConfidenceBar, ExploreButton } from '../components/shared'
+import { directionalVector } from '../data/loader'
 
 const BIG_FIVE = [
   { trait: 'Openness', score: 0.92, note: 'Cross-domain exploration, philosophical depth' },
@@ -118,9 +119,136 @@ function DailyRhythmBar() {
   )
 }
 
+function DirectionalVectorSection() {
+  if (!directionalVector) return null
+  const { axes, heading, constraints, attractors, antiVectors, nextExperimentSurfaces } = directionalVector
+
+  return (
+    <section>
+      <SectionHead
+        title="Directional Vector"
+        subtitle={directionalVector.summary}
+      />
+
+      {/* Heading: from → through → toward */}
+      <div className="rounded-lg border border-slate-700/60 bg-[color:var(--panel)] p-5 space-y-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="space-y-1">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[color:var(--ink-faint)]">From</span>
+            <p className="text-sm text-[color:var(--ink-soft)] leading-relaxed">{heading.from}</p>
+          </div>
+          <div className="space-y-1">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[color:var(--accent)]">Through</span>
+            <p className="text-sm text-[color:var(--ink)] leading-relaxed font-medium">{heading.through}</p>
+          </div>
+          <div className="space-y-1">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[color:var(--ink-faint)]">Toward</span>
+            <p className="text-sm text-[color:var(--ink-soft)] leading-relaxed">{heading.toward}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 pt-2 border-t border-[color:var(--line)]">
+          <ConfidenceBar value={heading.confidence} />
+          <span className="text-[10px] text-[color:var(--ink-faint)] shrink-0">{Math.round(heading.confidence * 100)}% confidence</span>
+        </div>
+      </div>
+
+      {/* Axes */}
+      <div className="space-y-2 mb-6">
+        {axes.map((axis) => (
+          <div key={axis.axis} className="rounded-md border border-slate-700/40 p-4 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-medium text-[color:var(--ink)]">{axis.axis}</span>
+              <div className="flex items-center gap-2 text-[10px] text-[color:var(--ink-faint)]">
+                <span>current: {axis.current > 0 ? '+' : ''}{axis.current.toFixed(2)}</span>
+                <span className={axis.recommendedDrift > 0 ? 'text-emerald-500/80' : 'text-amber-500/80'}>
+                  drift: {axis.recommendedDrift > 0 ? '+' : ''}{axis.recommendedDrift.toFixed(2)}
+                </span>
+              </div>
+            </div>
+            {/* Axis bar */}
+            <div className="relative h-2 rounded-full bg-[color:var(--panel)] overflow-visible">
+              {/* Current position */}
+              <div
+                className="absolute top-0 h-2 w-2 rounded-full bg-[color:var(--accent)]"
+                style={{ left: `${((axis.current + 1) / 2) * 100}%`, transform: 'translateX(-50%)' }}
+              />
+              {/* Recommended position */}
+              <div
+                className="absolute top-0 h-2 w-2 rounded-full border-2 border-emerald-500/80 bg-transparent"
+                style={{ left: `${((axis.current + axis.recommendedDrift + 1) / 2) * 100}%`, transform: 'translateX(-50%)' }}
+              />
+            </div>
+            <div className="flex justify-between text-[10px] text-[color:var(--ink-faint)]">
+              <span>{axis.leftPole}</span>
+              <span>{axis.rightPole}</span>
+            </div>
+            <p className="text-xs text-[color:var(--ink-faint)] leading-relaxed">{axis.rationale}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Constraints, Attractors, Anti-Vectors */}
+      <div className="space-y-2">
+        <Expandable title="Constraints" summary={`${constraints.length} forces limiting movement`}>
+          <ul className="space-y-1.5">
+            {constraints.map((c, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-amber-500/70 text-xs mt-0.5 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                <span className="text-xs text-[color:var(--ink-soft)] leading-relaxed">{c}</span>
+              </li>
+            ))}
+          </ul>
+        </Expandable>
+
+        <Expandable title="Attractors" summary={`${attractors.length} forces pulling toward growth`}>
+          <ul className="space-y-1.5">
+            {attractors.map((a, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-emerald-500/70 text-xs mt-0.5 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                <span className="text-xs text-[color:var(--ink-soft)] leading-relaxed">{a}</span>
+              </li>
+            ))}
+          </ul>
+        </Expandable>
+
+        <Expandable title="Anti-Vectors" summary={`${antiVectors.length} directions to avoid`}>
+          <ul className="space-y-1.5">
+            {antiVectors.map((av, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-red-400/70 text-xs mt-0.5 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                <span className="text-xs text-[color:var(--ink-soft)] leading-relaxed">{av}</span>
+              </li>
+            ))}
+          </ul>
+        </Expandable>
+
+        {nextExperimentSurfaces.length > 0 && (
+          <Expandable title="Experiment Surfaces" summary={`${nextExperimentSurfaces.length} areas to test next`} defaultOpen>
+            <div className="space-y-3">
+              {nextExperimentSurfaces.map((exp) => (
+                <div key={exp.surface} className="border-l-2 border-indigo-400/40 pl-4 space-y-1">
+                  <span className="text-xs font-medium text-[color:var(--ink)]">{exp.surface}</span>
+                  <p className="text-xs text-[color:var(--ink-faint)] leading-relaxed">{exp.whyThisSurface}</p>
+                  <div className="flex gap-4 text-[10px]">
+                    <span><span className="text-emerald-500/70 uppercase tracking-wider">Success:</span> {exp.successSignal}</span>
+                    <span><span className="text-red-400/70 uppercase tracking-wider">Failure:</span> {exp.failureSignal}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Expandable>
+        )}
+      </div>
+    </section>
+  )
+}
+
 export default function InsightsView() {
   return (
     <div className="space-y-20">
+      {/* Directional Vector */}
+      <DirectionalVectorSection />
+
       {/* Growth Vectors */}
       <section>
         <SectionHead

@@ -1,13 +1,60 @@
+// PSYCHE/OS Data Loader — loads from synthesis JSON, with hardcoded fallbacks for data not in synthesis
 import type {
   Connection,
   CrossValidatedPattern,
   DimensionalScore,
+  DirectionalVector,
   Extraction,
   NarrativeArc,
   Potential,
   Theme,
   Entity,
 } from './types'
+import synthesisRaw from './synthesis-unified.json'
+
+// ---------------------------------------------------------------------------
+// Synthesis data (loaded from pipeline output)
+// ---------------------------------------------------------------------------
+
+const synthesis = synthesisRaw as {
+  crossValidatedPatterns: CrossValidatedPattern[]
+  archetypeMapping: {
+    dominant: { archetype: string; manifestation: string; shadow: string; confidence: number; evidence: string }
+    secondary: { archetype: string; manifestation: string; shadow: string; confidence: number; evidence: string }
+    emergent: { archetype: string; manifestation: string; shadow: string; confidence: number; evidence: string }
+    goldenShadow: { archetype: string; manifestation: string; shadow: string; confidence: number; evidence: string }
+  }
+  unifiedDimensionalScores: Record<string, DimensionalScore>
+  topPotentials: Potential[]
+  narrativeArc: NarrativeArc
+  directionalVector?: DirectionalVector
+  modelLimitations?: string[]
+  simulacrumIndex?: number
+}
+
+// Cross-validated patterns from synthesis
+export const crossValidatedPatterns: CrossValidatedPattern[] = synthesis.crossValidatedPatterns
+
+// Archetype mapping from synthesis
+export const archetypeMapping = synthesis.archetypeMapping
+
+// Dimensional scores from synthesis
+export const dimensionalScores: Record<string, DimensionalScore> = synthesis.unifiedDimensionalScores
+
+// Potentials from synthesis
+export const allPotentials: Potential[] = synthesis.topPotentials
+
+// Narrative arc from synthesis
+export const narrativeArc: NarrativeArc = synthesis.narrativeArc
+
+// New data from synthesis (not previously available)
+export const directionalVector: DirectionalVector | undefined = synthesis.directionalVector
+export const modelLimitations: string[] = synthesis.modelLimitations ?? []
+export const simulacrumIndex: number = synthesis.simulacrumIndex ?? 0
+
+// ---------------------------------------------------------------------------
+// Hardcoded data (not in synthesis JSON — entities, themes, genome, etc.)
+// ---------------------------------------------------------------------------
 
 const ENTITY_LIBRARY: Record<string, Entity> = {
   'PSYCHE/OS': {
@@ -179,466 +226,9 @@ const THEME_LIBRARY: Record<string, Theme> = {
   },
 }
 
-export const crossValidatedPatterns: CrossValidatedPattern[] = [
-  {
-    id: 'CVP-001',
-    label: 'Build-Abstract-Restart',
-    confidence: 0.91,
-    sources: ['claude-sessions', 'codex-sessions', 'social-traces'],
-    evidence: {
-      'claude-sessions':
-        'Tools repeatedly begin as concrete utilities, then reappear as cleaner frameworks or protocols.',
-      'codex-sessions':
-        'Reflection notes frame progress as successive abstraction passes rather than linear completion.',
-      'social-traces':
-        'Public fragments show recurring announcements of revised systems, renamed architectures, and cleaner restarts.',
-    },
-    psychologicalInterpretation:
-      'Creation tends to move from a specific build into a higher-order model, then restart from that model. This produces originality and coherence, but repeatedly delays final closure.',
-    dimension: 'Professional',
-    archetypeResonance: ['Architect of Invisible Systems', 'The Integrator'],
-  },
-  {
-    id: 'CVP-002',
-    label: 'Dialogic Externalization',
-    confidence: 0.86,
-    sources: ['claude-sessions', 'codex-sessions', 'social-traces'],
-    evidence: {
-      'claude-sessions':
-        'Reasoning is often scaffolded through prompts, agents, or named interfaces rather than silent internal monologue.',
-      'codex-sessions':
-        'The Lyra persona is used as an explicit counter-voice for reflection, pressure testing, and reframing.',
-      'social-traces':
-        'Posts repeatedly stage thought as exchange, invocation, or dialogue rather than declaration.',
-    },
-    psychologicalInterpretation:
-      'Thinking becomes clearer when it is externalized into dialogue. The self reaches precision by creating a second voice, tool, or symbolic counterpart.',
-    dimension: 'Psychological',
-    archetypeResonance: ['The Seeker', 'The Integrator'],
-  },
-  {
-    id: 'CVP-003',
-    label: 'Empirical-Mystical Oscillation',
-    confidence: 0.82,
-    sources: ['claude-sessions', 'codex-sessions', 'social-traces'],
-    evidence: {
-      'claude-sessions':
-        'Technical and infrastructural decisions coexist with references to metaphysics, idealism, and symbolic meaning.',
-      'codex-sessions':
-        'Spiritual inquiry appears alongside attempts to model, formalize, and operationalize consciousness.',
-      'social-traces':
-        'Public traces shift between rigorous implementation talk and explicitly contemplative or philosophical language.',
-    },
-    psychologicalInterpretation:
-      'The profile does not choose between data and intuition; it alternates between them. Meaning emerges from keeping empirical rigor and spiritual receptivity in active tension.',
-    dimension: 'Spiritual',
-    archetypeResonance: ['The Seeker', 'The Essayist'],
-  },
-  {
-    id: 'CVP-004',
-    label: 'Consumption-Production Asymmetry',
-    confidence: 0.79,
-    sources: ['claude-sessions', 'codex-sessions', 'social-traces'],
-    evidence: {
-      'claude-sessions':
-        'Input volume is structurally higher than published artifact volume, especially in high-complexity domains.',
-      'codex-sessions':
-        'Notes describe the felt gap between saturation, understanding, and shipping.',
-      'social-traces':
-        'Public output often appears as fragments, teasers, or prototypes rather than finished works.',
-    },
-    psychologicalInterpretation:
-      'The mind is fed faster than it externalizes. This increases depth and originality, but also creates a standing tension between internal richness and public evidence.',
-    dimension: 'Creative',
-    archetypeResonance: ['The Essayist', 'Architect of Invisible Systems'],
-  },
-  {
-    id: 'CVP-005',
-    label: 'Sovereignty-Body Bridge',
-    confidence: 0.76,
-    sources: ['claude-sessions', 'codex-sessions', 'social-traces'],
-    evidence: {
-      'claude-sessions':
-        'Work systems repeatedly seek autonomy, but the highest consistency signal appears in bodily routine rather than digital routine.',
-      'codex-sessions':
-        'Physical discipline is described as the one domain where repetition does not fracture into over-architecture.',
-      'social-traces':
-        'Fragments imply the body acts as proof that consistency is possible when abstraction is removed.',
-    },
-    psychologicalInterpretation:
-      'The body functions as a bridge between sovereignty and execution. Embodied repetition is the strongest antidote to cognitive fragmentation and can be transferred into knowledge work.',
-    dimension: 'Psychological',
-    archetypeResonance: ['Architect of Invisible Systems', 'The Integrator'],
-  },
-  {
-    id: 'CVP-006',
-    label: 'Sovereignty-as-Core-Value',
-    confidence: 0.84,
-    sources: ['claude-sessions', 'codex-sessions', 'social-traces'],
-    evidence: {
-      'claude-sessions':
-        'Infrastructure choices favor legibility, ownership, and direct control even when convenience would be higher elsewhere.',
-      'codex-sessions':
-        'Autonomy is framed not merely as preference but as a non-negotiable condition for good work.',
-      'social-traces':
-        'Public language repeatedly privileges independence, self-direction, and refusal of unnecessary mediation.',
-    },
-    psychologicalInterpretation:
-      'Autonomy is not decorative in this profile; it is a central organizing value. The psyche protects room to think and build without external compression.',
-    dimension: 'Professional',
-    archetypeResonance: ['Architect of Invisible Systems', 'The Seeker'],
-  },
-]
-
-export const archetypeMapping = {
-  dominant: {
-    archetype: 'Architect of Invisible Systems',
-    manifestation:
-      'Builds structures, naming systems, and operating grammars that outlast any single project.',
-    shadow:
-      'Can retreat into architecture itself, postponing contact with messier forms of completion and exposure.',
-    confidence: 0.88,
-    evidence:
-      'Across tools, notes, and public traces, the recurrent impulse is to define substrate before surface.',
-  },
-  secondary: {
-    archetype: 'The Seeker',
-    manifestation:
-      'Moves toward metaphysical, psychological, and symbolic depth rather than settling for purely instrumental answers.',
-    shadow:
-      'Depth-seeking can become perpetual pilgrimage, making arrival feel suspicious or premature.',
-    confidence: 0.79,
-    evidence:
-      'Philosophy, consciousness, and meaning-making are treated as live operational questions, not side interests.',
-  },
-  emergent: {
-    archetype: 'The Integrator',
-    manifestation:
-      'Begins to braid engineering, aesthetics, consciousness work, and public articulation into one coherent practice.',
-    shadow:
-      'Integration can remain conceptual unless it is forced into a finished artifact with real boundaries.',
-    confidence: 0.74,
-    evidence:
-      'Recent projects increasingly combine multiple previous threads instead of keeping them in separate silos.',
-  },
-  goldenShadow: {
-    archetype: 'The Essayist',
-    manifestation:
-      'A public voice capable of turning systems, psyche, and lived experience into lucid long-form thought.',
-    shadow:
-      'This figure is admired at a distance and therefore risks remaining projected rather than inhabited.',
-    confidence: 0.72,
-    evidence:
-      'Writing potential appears repeatedly, but the most visible outputs still privilege systems over explicit authorship.',
-  },
-}
-
-export const dimensionalScores: Record<string, DimensionalScore> = {
-  Psychological: {
-    score: 0.82,
-    depth: 0.82,
-    convergence:
-      'High meta-cognitive awareness, explicit pattern observation, and strong capacity to model one’s own internal dynamics.',
-    blindSpot:
-      'Reflection can become recursive and delay action when inner clarity is pursued past practical sufficiency.',
-    keyFindings: ['High self-observation', 'Shadow literacy present', 'Embodied counter-pattern exists'],
-  },
-  Spiritual: {
-    score: 0.76,
-    depth: 0.76,
-    convergence:
-      'Meaning, consciousness, and metaphysical framing are not ornamental; they are active drivers of inquiry and identity formation.',
-    blindSpot:
-      'Spiritual breadth can widen faster than integration, producing fertile but unresolved symbolic excess.',
-    keyFindings: ['Idealist metaphysics interest', 'Contemplative inquiry', 'Meaning orientation is strong'],
-  },
-  Anthropological: {
-    score: 0.6,
-    depth: 0.6,
-    convergence:
-      'The self is often interpreted through rituals, roles, stories, and cultural systems rather than isolated traits alone.',
-    blindSpot:
-      'Broader social worlds are often interpreted analytically before they are inhabited relationally.',
-    keyFindings: ['Narrative framing', 'Role-based identity', 'Cultural pattern awareness'],
-  },
-  Social: {
-    score: 0.47,
-    depth: 0.47,
-    convergence:
-      'Relational style is selective, depth-seeking, and low-noise rather than expansive or high-frequency.',
-    blindSpot:
-      'Sophisticated autonomy systems reduce friction, but they also lower exposure to the unpredictability that grows social range.',
-    keyFindings: ['Selective bandwidth', 'High autonomy', 'Low weak-tie density'],
-  },
-  Creative: {
-    score: 0.72,
-    depth: 0.72,
-    convergence:
-      'Creative energy is strongest where naming, atmosphere, and cross-domain reframing converge into a distinct formal language.',
-    blindSpot:
-      'Editing and completion still lag behind ideation and aesthetic system building.',
-    keyFindings: ['Strong aesthetic restraint', 'Cross-domain transfer', 'Fragment-to-system tendency'],
-  },
-  Professional: {
-    score: 0.9,
-    depth: 0.9,
-    convergence:
-      'Professional identity is highly structured around systems, tools, leverage, and durable operating logic.',
-    blindSpot:
-      'The system can become more mature than the shipped artifact, creating an imbalance between infrastructure and publication.',
-    keyFindings: ['Infrastructure-first', 'Protocol thinking', 'Sovereignty as operating principle'],
-  },
-}
-
-export const allPotentials: Potential[] = [
-  {
-    rank: 1,
-    label: 'Long-form Philosophical Writing',
-    state: 'Latent',
-    description:
-      'A sustained essayistic voice that can translate systems, psyche, and metaphysics into public language with clarity and atmosphere.',
-    confidence: 0.86,
-    crossSourceValidation:
-      'Appears in the archetypal profile, the narrative arc, and the repeated tension between depth of thought and low publication volume.',
-    actionable:
-      'Ship one finished essay with a fixed maximum length and no architecture pass after the first full draft.',
-  },
-  {
-    rank: 2,
-    label: 'Protocol Entrepreneurship',
-    state: 'Emerging',
-    description:
-      'The ability to turn protocol thinking into a productized or studio-level practice instead of leaving it as internal architecture.',
-    confidence: 0.82,
-    crossSourceValidation:
-      'Supported by recurring protocol design, infrastructure competence, and the drive to create systems that others can enter.',
-    actionable:
-      'Package one protocol as a public offer: name it, define the boundary, and ship a minimal entry point.',
-  },
-  {
-    rank: 3,
-    label: 'Consciousness Research Practice',
-    state: 'Latent',
-    description:
-      'A hybrid inquiry practice combining contemplative, phenomenological, and technical lenses around mind and experience.',
-    confidence: 0.78,
-    crossSourceValidation:
-      'Strengthened by the spiritual dimension, the seeker archetype, and repeated references to consciousness-oriented frameworks.',
-    actionable:
-      'Publish a small monthly note that connects one philosophical idea to one concrete technical or lived observation.',
-  },
-  {
-    rank: 4,
-    label: 'Photography Worldbuilding',
-    state: 'Emerging',
-    description:
-      'An atmospheric visual language capable of becoming a parallel body of work rather than an occasional aesthetic side channel.',
-    confidence: 0.74,
-    crossSourceValidation:
-      'Supported by social traces around Stillframe, the creative dimension, and the recurring theme of aesthetic restraint.',
-    actionable:
-      'Build a five-image micro-series around one narrative mood instead of waiting for a complete project identity.',
-  },
-  {
-    rank: 5,
-    label: 'AI Studio Practice',
-    state: 'Sabotaged',
-    description:
-      'A coherent public-facing practice around agents, cognition, and human-tool dialogue that is currently dispersed across too many prototypes.',
-    confidence: 0.8,
-    crossSourceValidation:
-      'Visible across tool-building, dialogic externalization, and convergence motifs, but repeatedly diluted by restarts.',
-    actionable:
-      'Choose one surface for thirty days and let every experiment collapse into that single public container.',
-  },
-]
-
-export const narrativeArc: NarrativeArc = {
-  currentChapter: 'The Throughline',
-  description:
-    'Previously separate lines of work are now close enough to become one public artifact: systems, psyche, aesthetics, and consciousness no longer need separate containers.',
-  previousChapters: [
-    'The Engineer (systems, reliability, industrial logic)',
-    'The Artist (image, atmosphere, staged perception)',
-    'The Builder (tools, protocols, infrastructure)',
-    'The Seeker (metaphysics, consciousness, inward depth)',
-    'The Simplifier (leverage, cost, simplification)',
-  ],
-  tensionPoint:
-    'The convergence requires shipping, not another architecture pass. The unresolved conflict is between the elegance of the system and the vulnerability of the finished artifact.',
-  possibleResolutions: [
-    'Ship a single synthesis artifact that binds writing, system design, and psychological modeling.',
-    'Turn one internal protocol into a public studio or product surface with clear boundaries.',
-    'Use long-form writing as the integration layer instead of waiting for perfect infrastructure.',
-  ],
-}
-
-const COGNITIVE_PATTERN_LIBRARY = {
-  'claude-sessions': [
-    {
-      label: 'Infrastructure-First',
-      kind: 'systematic',
-      confidence: 0.85,
-      evidence: 'Architecture and protocol layers appear before interface polish.',
-    },
-    {
-      label: 'Build-Abstract-Restart',
-      kind: 'systematic',
-      confidence: 0.91,
-      evidence: 'Projects recur as cleaner higher-order restarts.',
-    },
-  ],
-  'codex-sessions': [
-    {
-      label: 'Dialogic Externalization',
-      kind: 'metacognitive',
-      confidence: 0.86,
-      evidence: 'Reflection sharpens when a counterpart voice is invoked.',
-    },
-    {
-      label: 'Empirical-Mystical Oscillation',
-      kind: 'intuitive',
-      confidence: 0.82,
-      evidence: 'Spiritual and analytical modes actively alternate.',
-    },
-  ],
-  'social-traces': [
-    {
-      label: 'Aesthetic Compression',
-      kind: 'divergent',
-      confidence: 0.73,
-      evidence: 'Public fragments trend toward atmosphere, naming, and compressed signals.',
-    },
-    {
-      label: 'Consumption-Production Asymmetry',
-      kind: 'metacognitive',
-      confidence: 0.79,
-      evidence: 'Visible output remains lower than internal accumulation.',
-    },
-  ],
-} as const
-
-const CYCLE_LIBRARY = {
-  'claude-sessions': [
-    {
-      kind: 'project',
-      label: 'Build-Abstract-Restart',
-      trigger: 'Architectural insight',
-      outcome: 'Cleaner but delayed public artifact',
-      frequency: 'High',
-      confidence: 0.88,
-    },
-  ],
-  'codex-sessions': [
-    {
-      kind: 'reflection',
-      label: 'Burst-Process-Burst',
-      trigger: 'Intense creation phase',
-      outcome: 'Pause, integration, then renewed synthesis',
-      frequency: 'High',
-      confidence: 0.81,
-    },
-  ],
-  'social-traces': [
-    {
-      kind: 'public-output',
-      label: 'Fragment-to-System',
-      trigger: 'Shareable prototype or phrase',
-      outcome: 'Reframed into broader operating language',
-      frequency: 'Moderate',
-      confidence: 0.7,
-    },
-  ],
-} as const
-
-function pickEntities(names: string[]): Entity[] {
-  return names.map(name => ENTITY_LIBRARY[name])
-}
-
-function pickThemes(labels: string[]): Theme[] {
-  return labels.map(label => THEME_LIBRARY[label])
-}
-
-function createExtraction(config: {
-  source: 'claude-sessions' | 'codex-sessions' | 'social-traces'
-  documentsAnalyzed: number
-  entityNames: string[]
-  themeLabels: string[]
-}): Extraction {
-  return {
-    source: config.source,
-    documentsAnalyzed: config.documentsAnalyzed,
-    entities: pickEntities(config.entityNames),
-    themes: pickThemes(config.themeLabels),
-    emotionalTone: {
-      valence: 0.12,
-      arousal: 0.58,
-      dominantEmotion: 'Curiosity',
-      secondaryEmotions: ['Resolve', 'Restlessness'],
-    },
-    cognitivePatterns: [...COGNITIVE_PATTERN_LIBRARY[config.source]],
-    selfSabotageIndicators: [],
-    projections: [],
-    cycles: [...CYCLE_LIBRARY[config.source]],
-    potentials: [],
-    dimensionalScores,
-    connections: [],
-    cognitiveGenomeEvidence: {},
-  }
-}
-
-export const claudeSessions = createExtraction({
-  source: 'claude-sessions',
-  documentsAnalyzed: 41,
-  entityNames: ['PSYCHE/OS', 'Loom', 'Claude Code', 'Civic Mesh', 'Tailscale'],
-  themeLabels: ['Tool Sovereignty', 'Protocol Design', 'Cross-domain Synthesis'],
-})
-
-export const codexSessions = createExtraction({
-  source: 'codex-sessions',
-  documentsAnalyzed: 33,
-  entityNames: ['Lyra', 'Jung', 'Bateson', 'Corrections Practice'],
-  themeLabels: ['Consciousness Inquiry', 'Narrative Identity', 'Embodied Discipline'],
-})
-
-export const socialTraces = createExtraction({
-  source: 'social-traces',
-  documentsAnalyzed: 29,
-  entityNames: ['Stillframe', 'Northstar Studio', 'Beacon Protocol'],
-  themeLabels: ['Aesthetic Restraint', 'Relational Selectivity'],
-})
-
-export const extractions: Extraction[] = [claudeSessions, codexSessions, socialTraces]
-
-export const allEntities = extractions.flatMap(e => e.entities)
-export const allThemes = extractions.flatMap(e => e.themes)
-export const allPatterns = extractions.flatMap(e => e.cognitivePatterns)
-export const allCycles = extractions.flatMap(e => e.cycles)
-
-export const allConnections: Connection[] = [
-  { from: 'PSYCHE/OS', to: 'Build-Abstract-Restart', relationship: 'embodies' },
-  { from: 'PSYCHE/OS', to: 'Cross-domain Synthesis', relationship: 'organizes' },
-  { from: 'Loom', to: 'Tool Sovereignty', relationship: 'supports' },
-  { from: 'Loom', to: 'Architect of Invisible Systems', relationship: 'resonates' },
-  { from: 'Claude Code', to: 'Dialogic Externalization', relationship: 'amplifies' },
-  { from: 'Civic Mesh', to: 'Protocol Entrepreneurship', relationship: 'points toward' },
-  { from: 'Lyra', to: 'Dialogic Externalization', relationship: 'instantiates' },
-  { from: 'Jung', to: 'Narrative Identity', relationship: 'frames' },
-  { from: 'Bateson', to: 'Empirical-Mystical Oscillation', relationship: 'feeds' },
-  { from: 'Corrections Practice', to: 'Failure-Driven Learning', relationship: 'substantiates' },
-  { from: 'Stillframe', to: 'Aesthetic Restraint', relationship: 'expresses' },
-  { from: 'Northstar Studio', to: 'Cross-domain Synthesis', relationship: 'compresses' },
-  { from: 'Beacon Protocol', to: 'Dialogic Externalization', relationship: 'formalizes' },
-  { from: 'Protocol Design', to: 'Protocol Entrepreneurship', relationship: 'enables' },
-  { from: 'Consciousness Inquiry', to: 'Consciousness Research Practice', relationship: 'matures into' },
-  { from: 'Embodied Discipline', to: 'Sovereignty-Body Bridge', relationship: 'grounds' },
-  { from: 'Aesthetic Restraint', to: 'Photography Worldbuilding', relationship: 'shapes' },
-  { from: 'Relational Selectivity', to: 'Sovereignty-as-Core-Value', relationship: 'echoes' },
-  { from: 'Cross-domain Synthesis', to: 'AI Studio Practice', relationship: 'wants expression through' },
-  { from: 'Narrative Identity', to: 'The Essayist', relationship: 'calls forth' },
-  { from: 'Consciousness Inquiry', to: 'The Seeker', relationship: 'animates' },
-  { from: 'Cross-domain Synthesis', to: 'The Integrator', relationship: 'strengthens' },
-]
+// ---------------------------------------------------------------------------
+// Cognitive genome primitives (hardcoded — not in synthesis)
+// ---------------------------------------------------------------------------
 
 export const cognitiveGenomePrimitives = [
   { name: 'Abstraction Descent', value: 0.78, kind: 'systematic' },
@@ -650,6 +240,10 @@ export const cognitiveGenomePrimitives = [
   { name: 'Cost-Conscious', value: 0.69, kind: 'analytical' },
   { name: 'Burst-Process-Burst', value: 0.52, kind: 'divergent' },
 ]
+
+// ---------------------------------------------------------------------------
+// Neurodivergence data (from neurodivergence-screening.json, hardcoded)
+// ---------------------------------------------------------------------------
 
 export const neurodivergenceIndicators: import('./types').NeurodivergenceIndicator[] = [
   {
@@ -796,6 +390,126 @@ export const neurodivergenceIndicators: import('./types').NeurodivergenceIndicat
 export const neurodivergenceOverlapAnalysis = 'The four dimensions analyzed here overlap substantially. ADHD and giftedness share novelty-seeking, rapid ideation, and intensity. ASD and giftedness share systematizing, deep interests, and social selectivity. HSP overlaps with all three through deep processing and sensitivity. This is why differential diagnosis requires professional assessment: the same behavioral pattern (e.g., project restarts) can have entirely different underlying mechanisms (impulsivity vs. perfectionism vs. boredom from mastery). In this profile, the strongest convergent signal is across the giftedness and ADHD-adjacent dimensions, which is consistent with the "twice-exceptional" (2e) literature where high cognitive ability coexists with executive function variability.'
 
 export const neurodivergenceSummary = 'The behavioral profile shows moderate-to-strong indicators of intellectual giftedness (overexcitabilities, cross-domain transfer, existential depth) and moderate ADHD-adjacent patterns (burst rhythms, novelty-seeking, completion difficulty). Autism spectrum and HSP indicators are present but weaker and largely explainable by introversion, engineering training, and high Openness. The overall picture is more consistent with a gifted/2e profile than with any single clinical neurodivergent condition, but formal assessment would be needed to confirm or refute this.'
+
+// ---------------------------------------------------------------------------
+// Extraction-level data (hardcoded — per-source detail not in synthesis)
+// ---------------------------------------------------------------------------
+
+const COGNITIVE_PATTERN_LIBRARY = {
+  'claude-sessions': [
+    { label: 'Infrastructure-First', kind: 'systematic', confidence: 0.85, evidence: 'Architecture and protocol layers appear before interface polish.' },
+    { label: 'Build-Abstract-Restart', kind: 'systematic', confidence: 0.91, evidence: 'Projects recur as cleaner higher-order restarts.' },
+  ],
+  'codex-sessions': [
+    { label: 'Dialogic Externalization', kind: 'metacognitive', confidence: 0.86, evidence: 'Reflection sharpens when a counterpart voice is invoked.' },
+    { label: 'Empirical-Mystical Oscillation', kind: 'intuitive', confidence: 0.82, evidence: 'Spiritual and analytical modes actively alternate.' },
+  ],
+  'social-traces': [
+    { label: 'Aesthetic Compression', kind: 'divergent', confidence: 0.73, evidence: 'Public fragments trend toward atmosphere, naming, and compressed signals.' },
+    { label: 'Consumption-Production Asymmetry', kind: 'metacognitive', confidence: 0.79, evidence: 'Visible output remains lower than internal accumulation.' },
+  ],
+} as const
+
+const CYCLE_LIBRARY = {
+  'claude-sessions': [
+    { kind: 'project', label: 'Build-Abstract-Restart', trigger: 'Architectural insight', outcome: 'Cleaner but delayed public artifact', frequency: 'High', confidence: 0.88 },
+  ],
+  'codex-sessions': [
+    { kind: 'reflection', label: 'Burst-Process-Burst', trigger: 'Intense creation phase', outcome: 'Pause, integration, then renewed synthesis', frequency: 'High', confidence: 0.81 },
+  ],
+  'social-traces': [
+    { kind: 'public-output', label: 'Fragment-to-System', trigger: 'Shareable prototype or phrase', outcome: 'Reframed into broader operating language', frequency: 'Moderate', confidence: 0.7 },
+  ],
+} as const
+
+function pickEntities(names: string[]): Entity[] {
+  return names.map(name => ENTITY_LIBRARY[name]).filter(Boolean)
+}
+
+function pickThemes(labels: string[]): Theme[] {
+  return labels.map(label => THEME_LIBRARY[label]).filter(Boolean)
+}
+
+function createExtraction(config: {
+  source: 'claude-sessions' | 'codex-sessions' | 'social-traces'
+  documentsAnalyzed: number
+  entityNames: string[]
+  themeLabels: string[]
+}): Extraction {
+  return {
+    source: config.source,
+    documentsAnalyzed: config.documentsAnalyzed,
+    entities: pickEntities(config.entityNames),
+    themes: pickThemes(config.themeLabels),
+    emotionalTone: {
+      valence: 0.12,
+      arousal: 0.58,
+      dominantEmotion: 'Curiosity',
+      secondaryEmotions: ['Resolve', 'Restlessness'],
+    },
+    cognitivePatterns: [...COGNITIVE_PATTERN_LIBRARY[config.source]],
+    selfSabotageIndicators: [],
+    projections: [],
+    cycles: [...CYCLE_LIBRARY[config.source]],
+    potentials: [],
+    dimensionalScores,
+    connections: [],
+    cognitiveGenomeEvidence: {},
+  }
+}
+
+export const claudeSessions = createExtraction({
+  source: 'claude-sessions',
+  documentsAnalyzed: 41,
+  entityNames: ['PSYCHE/OS', 'Loom', 'Claude Code', 'Civic Mesh', 'Tailscale'],
+  themeLabels: ['Tool Sovereignty', 'Protocol Design', 'Cross-domain Synthesis'],
+})
+
+export const codexSessions = createExtraction({
+  source: 'codex-sessions',
+  documentsAnalyzed: 33,
+  entityNames: ['Lyra', 'Jung', 'Bateson', 'Corrections Practice'],
+  themeLabels: ['Consciousness Inquiry', 'Narrative Identity', 'Embodied Discipline'],
+})
+
+export const socialTraces = createExtraction({
+  source: 'social-traces',
+  documentsAnalyzed: 29,
+  entityNames: ['Stillframe', 'Northstar Studio', 'Beacon Protocol'],
+  themeLabels: ['Aesthetic Restraint', 'Relational Selectivity'],
+})
+
+export const extractions: Extraction[] = [claudeSessions, codexSessions, socialTraces]
+
+export const allEntities = extractions.flatMap(e => e.entities)
+export const allThemes = extractions.flatMap(e => e.themes)
+export const allPatterns = extractions.flatMap(e => e.cognitivePatterns)
+export const allCycles = extractions.flatMap(e => e.cycles)
+
+export const allConnections: Connection[] = [
+  { from: 'PSYCHE/OS', to: 'Build-Abstract-Restart', relationship: 'embodies' },
+  { from: 'PSYCHE/OS', to: 'Cross-domain Synthesis', relationship: 'organizes' },
+  { from: 'Loom', to: 'Tool Sovereignty', relationship: 'supports' },
+  { from: 'Loom', to: archetypeMapping.dominant.archetype, relationship: 'resonates' },
+  { from: 'Claude Code', to: 'Dialogic Externalization', relationship: 'amplifies' },
+  { from: 'Civic Mesh', to: 'Protocol Entrepreneurship', relationship: 'points toward' },
+  { from: 'Lyra', to: 'Dialogic Externalization', relationship: 'instantiates' },
+  { from: 'Jung', to: 'Narrative Identity', relationship: 'frames' },
+  { from: 'Bateson', to: 'Empirical-Mystical Oscillation', relationship: 'feeds' },
+  { from: 'Corrections Practice', to: 'Failure-Driven Learning', relationship: 'substantiates' },
+  { from: 'Stillframe', to: 'Aesthetic Restraint', relationship: 'expresses' },
+  { from: 'Northstar Studio', to: 'Cross-domain Synthesis', relationship: 'compresses' },
+  { from: 'Beacon Protocol', to: 'Dialogic Externalization', relationship: 'formalizes' },
+  { from: 'Protocol Design', to: 'Protocol Entrepreneurship', relationship: 'enables' },
+  { from: 'Consciousness Inquiry', to: 'Consciousness Research Practice', relationship: 'matures into' },
+  { from: 'Embodied Discipline', to: 'Sovereignty-Body Bridge', relationship: 'grounds' },
+  { from: 'Aesthetic Restraint', to: 'Photography Worldbuilding', relationship: 'shapes' },
+  { from: 'Relational Selectivity', to: 'Sovereignty-as-Core-Value', relationship: 'echoes' },
+  { from: 'Cross-domain Synthesis', to: 'AI Studio Practice', relationship: 'wants expression through' },
+  { from: 'Narrative Identity', to: archetypeMapping.goldenShadow.archetype, relationship: 'calls forth' },
+  { from: 'Consciousness Inquiry', to: archetypeMapping.secondary.archetype, relationship: 'animates' },
+  { from: 'Cross-domain Synthesis', to: archetypeMapping.emergent.archetype, relationship: 'strengthens' },
+]
 
 export const DIMENSION_COLORS: Record<string, string> = {
   Psychological: '#9f4a34',

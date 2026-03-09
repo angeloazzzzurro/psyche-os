@@ -332,7 +332,7 @@ export default function GenomeView() {
                         x={x}
                         y={y}
                         textAnchor={textAnchor as 'start' | 'middle' | 'end'}
-                        fill={isActive ? '#9f4a34' : '#94a3b8'}
+                        fill={isActive ? '#9f4a34' : '#6b5c52'}
                         fontSize={10}
                         fontWeight={isActive ? 600 : 400}
                         style={{ cursor: 'pointer' }}
