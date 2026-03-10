@@ -71,6 +71,28 @@ Outputs (cognitive genome, narrative arc, directional vector)
 
 The intended end state is not a recommendation engine. It is a directional reading: a vector that summarizes where the strongest signals point when compared side by side.
 
+---
+
+## Plug and Play: Feed Your AI Agents
+
+PSYCHE/OS is not just an analysis tool. It generates ready-to-use outputs that plug directly into your AI workflow.
+
+The **Integration** view in the dashboard produces five export formats, each designed for a different integration surface:
+
+| Export | What it does | Target |
+|--------|-------------|--------|
+| **System Prompt Generator** | Full cognitive profile as a system prompt — patterns, archetypes, dimensions, genome, narrative arc. Copy and paste into any AI chat. | Claude.ai, ChatGPT, Gemini, any LLM |
+| **MCP Server Configuration** | JSON config that exposes PSYCHE/OS as callable tools (`get_patterns`, `get_archetypes`, `get_dimensions`, `get_potentials`, `get_genome`, `search_analysis`). | Claude Code, MCP-compatible agents |
+| **Memory Plugin Format** | Compact CLAUDE.md block with top patterns, archetypes, genome, and narrative. Drop it into your project config. | Claude Code persistent memory |
+| **Structured Data Export** | Full analysis as a single downloadable JSON object. | Data pipelines, custom agents, LangChain, CrewAI |
+| **API Endpoint Schema** | OpenAPI 3.0 spec for serving PSYCHE/OS data via HTTP. | Custom integrations, hosted APIs |
+
+In practice: run the pipeline once, open the Integration tab, copy the output you need, and your AI agent has full cognitive context.
+
+The **Onboarding** view guides you through connecting each data source with copy-pasteable commands for Claude Code, Codex CLI, X/Twitter (via Siftly), YouTube (via Google Takeout), and cloud AI conversations (Claude.ai, ChatGPT, Gemini).
+
+---
+
 ### Example Output: Cognitive Genome
 
 From 103 documents across 6 sources, the pipeline extracted 8 cognitive primitives from synthetic demo data:
