@@ -121,15 +121,13 @@ From 103 documents across 6 sources, the pipeline extracted 8 cognitive primitiv
 ## Current Interface
 
 <p>
-  <img src="docs/readme/setup-overview.png" alt="Setup view" width="49%" />
-  <img src="docs/readme/semantic-map.png" alt="Semantic map view" width="49%" />
+  <img src="docs/readme/view-setup.jpg" alt="Setup and onboarding view" width="49%" />
+  <img src="docs/readme/view-semantic-map.jpg" alt="Semantic map view" width="49%" />
 </p>
 <p>
-  <img src="docs/readme/narrative-arc.png" alt="Narrative arc view" width="49%" />
-  <img src="docs/readme/integration-export.png" alt="Integration view" width="49%" />
+  <img src="docs/readme/view-narrative.jpg" alt="Narrative arc view" width="49%" />
+  <img src="docs/readme/view-integration.jpg" alt="Integration and export view" width="49%" />
 </p>
-
-All screenshots are generated from synthetic demo data, not from personal source material.
 
 The dashboard includes:
 
