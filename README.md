@@ -6,7 +6,11 @@
 
 <p align="center">
   <strong>Digital Psyche Operating System</strong><br />
-  Plug-and-play memory for AI agents — and a pipeline that turns your digital traces into a navigable psychological map.
+  A local-first pipeline that turns your digital traces into a navigable psychological map.
+</p>
+
+<p align="center">
+  Experimental, typographic, privacy-aware, and evolving in public.
 </p>
 
 <p align="center">
@@ -14,98 +18,37 @@
   <a href="./LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-1f1913" /></a>
   <img alt="Status" src="https://img.shields.io/badge/status-experimental-9f4a34" />
   <img alt="Local Only" src="https://img.shields.io/badge/storage-local--only-1f1913" />
-  <img alt="Format" src="https://img.shields.io/badge/format-markdown-blue" />
 </p>
 
 ---
 
-## Two Layers, One System
+## What It Does
 
 <p align="center">
-  <img src="docs/readme/two-layers.jpg" alt="Two Layers: Knowledge and Psyche" width="85%" />
+  <img src="docs/readme/two-layers.jpg" alt="From documents to deep structure" width="85%" />
 </p>
 
-PSYCHE/OS operates on two levels that feed each other:
+PSYCHE/OS reads the data you already produce — chat sessions, bookmarks, code history, browsing traces, notes — and extracts structure from it. Not generic self-help. Not personality quizzes. Computed structure, cross-validated across sources, with evidence you can inspect.
 
-**Layer 1 — Unified Memory** (practical, immediate)
-A `knowledge/` directory of structured Markdown files. Point any AI agent at it and it instantly knows who you are, what you're building, how you work, and what mistakes to avoid. No API, no database — just plain text any LLM can read.
+The core idea is simple:
 
-**Layer 2 — Psyche Pipeline** (deep, analytical)
-A TypeScript pipeline that reads your digital traces — chat sessions, bookmarks, code history, notes — and extracts patterns, cognitive primitives, archetypes, narrative arcs, and directional potentials. Only what survives cross-source comparison makes it to the map.
+- use data that already describes your behavior
+- inspect it locally instead of handing it to opaque systems
+- compute structure, not summaries
+- move toward a directional vector, not a pile of advice
 
-> The first layer tells your agent *what you know*. The second reveals *how you think*.
-> The deep layer feeds back into the practical one: the pipeline generates a `cognitive-genome.md` that agents can read.
+> It does not diagnose. It maps.
 
 ---
 
-## Agent Memory: Plug and Play
-
-<p align="center">
-  <img src="docs/readme/architecture.jpg" alt="Architecture" width="85%" />
-</p>
-
-The `knowledge/` directory works as plug-and-play persistent context for any AI tool:
-
-<p align="center">
-  <img src="docs/readme/integration-flow.jpg" alt="Integration Flow" width="85%" />
-</p>
-
-### Connect to your agent
-
-**Claude Code** — add to `CLAUDE.md`:
-```markdown
-@path/to/knowledge/identity.md
-@path/to/knowledge/projects.md
-@path/to/knowledge/preferences.md
-@path/to/knowledge/cognitive-genome.md
-```
-
-**ChatGPT / Custom GPTs** — paste into system prompt or memory:
-```
-Read the following knowledge files for persistent context:
-[paste contents of knowledge/*.md]
-```
-
-**OpenAI Codex / agents** — reference in agent config:
-```yaml
-context_files:
-  - path/to/knowledge/
-```
-
-**Any LLM with file access** (MCP, LangChain, CrewAI, AutoGen):
-```bash
-knowledge_path: "./knowledge/"
-```
-
-### Knowledge Files
-
-Each file is a self-contained context module:
-
-| File | What it gives your agent |
-|------|--------------------------|
-| `identity.md` | Who you are — name, languages, interests, psych profile |
-| `career.md` | Professional context — role, tools, approach |
-| `projects.md` | What you're building — stacks, status, goals |
-| `preferences.md` | How you work — communication, code style, tool preferences |
-| `corrections.md` | Mistakes AI keeps making with you |
-| `infrastructure.md` | Your setup — hardware, servers, services |
-| `domain-*.md` | Domain expertise (e.g. railway, logistics) |
-| `cognitive-genome.md` | How you think — primitives, blind spots, rhythm |
-
-Pick what you need. Use all files for full context, or select specific ones for focused agents.
-
----
-
-## The Psyche Pipeline: Deep Analysis
-
-> *It does not diagnose. It maps.*
+## How It Works
 
 ![PSYCHE/OS overview dashboard](docs/readme/overview-dashboard.png)
 
-PSYCHE/OS reads the data you already produce and computes structure from it. The core principle: **keep only what survives cross-source validation.** A pattern that shows up in your Claude sessions, your X bookmarks, *and* your YouTube history is a real signal. One that appears in a single source is noise.
+PSYCHE/OS follows a strict principle: **keep only what survives cross-source validation.** A pattern that shows up in your Claude sessions, your X bookmarks, *and* your YouTube history is a real signal. One that appears in a single source is noise.
 
 ```
-Sources (raw data)
+Sources (exported data)
     ↓  source-specific adapters
 Extraction (structured signals per source)
     ↓  cross-source synthesis
@@ -113,7 +56,7 @@ Patterns (only what survives comparison)
     ↓  dimensional analysis
 Map (navigable psychological structure)
     ↓
-Cognitive Genome → feeds back into knowledge/
+Outputs (cognitive genome, narrative arc, directional vector)
 ```
 
 ### What the pipeline produces
@@ -128,22 +71,20 @@ Cognitive Genome → feeds back into knowledge/
 
 The intended end state is not a recommendation engine. It is a directional reading: a vector that summarizes where the strongest signals point when compared side by side.
 
-### Example: Cognitive Genome
+### Example Output: Cognitive Genome
 
-From 103 documents across 6 sources, the pipeline extracted 8 cognitive primitives:
+From 103 documents across 6 sources, the pipeline extracted 8 cognitive primitives from synthetic demo data:
 
 | Primitive | Confidence | Evidence |
 |-----------|-----------|----------|
-| Failure-Driven Learning | 0.92 | regressions.md as constitutional law |
-| Systematic Abstraction Descent | 0.90 | React→vanilla→Apps Script |
-| Fractal Pattern Transfer | 0.88 | MCP→EUFMCP, same structure different substrate |
-| Infrastructure-First Construction | 0.88 | Scaffolding IS thinking |
-| Empirical-Mystical Oscillation | 0.88 | 7am contemplation, 9am TDD |
-| Cost-Conscious Optimization | 0.88 | Efficiency as aesthetic |
-| Naming-as-Cognition | 0.82 | Names create cognitive handles |
-| Burst-Process-Burst Rhythm | 0.82 | Silence between notes matters |
-
-This becomes `knowledge/cognitive-genome.md` — which agents read for deeper understanding of *how* you think, not just *what* you know.
+| Failure-Driven Learning | 0.92 | Error logs treated as foundational reference |
+| Systematic Abstraction Descent | 0.90 | Progressive simplification across frameworks |
+| Fractal Pattern Transfer | 0.88 | Same structure applied across different substrates |
+| Infrastructure-First Construction | 0.88 | Scaffolding as a mode of thinking |
+| Empirical-Mystical Oscillation | 0.88 | Alternating contemplative and technical modes |
+| Cost-Conscious Optimization | 0.88 | Efficiency as aesthetic principle |
+| Naming-as-Cognition | 0.82 | Naming as a tool for conceptual transformation |
+| Burst-Process-Burst Rhythm | 0.82 | Productive silence between output phases |
 
 ---
 
@@ -158,7 +99,7 @@ This becomes `knowledge/cognitive-genome.md` — which agents read for deeper un
   <img src="docs/readme/integration-export.png" alt="Integration view" width="49%" />
 </p>
 
-All README screenshots are generated from synthetic demo data, not from personal source material.
+All screenshots are generated from synthetic demo data, not from personal source material.
 
 The dashboard includes:
 
@@ -272,8 +213,6 @@ Project docs: [Pipeline methodology](docs/pipeline-methodology.md) · [Analytic 
 ## Design Principles
 
 - **Local-first** — No cloud, no sync. Your data stays on your machine.
-- **Plain Markdown** — No proprietary format. Any tool that reads text can use it.
-- **Agent-agnostic** — Works with Claude, ChatGPT, Codex, LangChain, CrewAI, or any LLM.
 - **Evidence-linked** — Every insight cites its source. Interpretations are hypotheses, not identity statements.
 - **Ontology-first** — Schema before data. Structure emerges, not imposed.
 - **Privacy by architecture** — Access control is structural, not policy-based.
