@@ -43,9 +43,13 @@ The core idea is simple:
 
 ## How It Works
 
-![PSYCHE/OS overview dashboard](docs/readme/overview-dashboard.png)
+<p align="center">
+  <img src="docs/readme/pipeline-transform.jpg" alt="Raw digital traces transformed into structured psychological insights" width="85%" />
+</p>
 
 PSYCHE/OS follows a strict principle: **keep only what survives cross-source validation.** A pattern that shows up in your Claude sessions, your X bookmarks, *and* your YouTube history is a real signal. One that appears in a single source is noise.
+
+![PSYCHE/OS overview dashboard](docs/readme/overview-dashboard.png)
 
 ```
 Sources (exported data)
@@ -74,6 +78,10 @@ The intended end state is not a recommendation engine. It is a directional readi
 ---
 
 ## Plug and Play: Feed Your AI Agents
+
+<p align="center">
+  <img src="docs/readme/agent-integration.jpg" alt="PSYCHE/OS outputs feeding into AI agents and tools" width="85%" />
+</p>
 
 PSYCHE/OS is not just an analysis tool. It generates ready-to-use outputs that plug directly into your AI workflow.
 
@@ -135,6 +143,10 @@ The dashboard includes:
 ---
 
 ## Supported Sources
+
+<p align="center">
+  <img src="docs/readme/data-sources-ingest.jpg" alt="Data sources flowing into PSYCHE/OS pipeline" width="85%" />
+</p>
 
 Each source has a dedicated `SourceAdapter`:
 
