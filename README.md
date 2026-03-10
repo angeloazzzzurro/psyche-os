@@ -49,7 +49,9 @@ The core idea is simple:
 
 PSYCHE/OS follows a strict principle: **keep only what survives cross-source validation.** A pattern that shows up in your Claude sessions, your X bookmarks, *and* your YouTube history is a real signal. One that appears in a single source is noise.
 
-![PSYCHE/OS overview dashboard](docs/readme/overview-dashboard.png)
+<p align="center">
+  <img src="docs/readme/concept-overview.jpg" alt="6 psychological dimensions with depth levels" width="85%" />
+</p>
 
 ```
 Sources (exported data)
@@ -118,25 +120,25 @@ From 103 documents across 6 sources, the pipeline extracted 8 cognitive primitiv
 
 ---
 
-## Current Interface
+## What It Maps
 
 <p>
-  <img src="docs/readme/view-setup.jpg" alt="Setup and onboarding view" width="49%" />
-  <img src="docs/readme/view-semantic-map.jpg" alt="Semantic map view" width="49%" />
+  <img src="docs/readme/concept-semantic-map.jpg" alt="Semantic knowledge graph — entities, themes, relationships" width="49%" />
+  <img src="docs/readme/concept-archetypes.jpg" alt="Archetypal constellation — dominant, secondary, emergent, shadow" width="49%" />
 </p>
 <p>
-  <img src="docs/readme/view-narrative.jpg" alt="Narrative arc view" width="49%" />
-  <img src="docs/readme/view-integration.jpg" alt="Integration and export view" width="49%" />
+  <img src="docs/readme/concept-narrative.jpg" alt="Narrative arc — chapters, tension, possible resolutions" width="49%" />
+  <img src="docs/readme/concept-overview.jpg" alt="Dimensional profile — 6 axes, 5 depth levels" width="49%" />
 </p>
 
-The dashboard includes:
+The pipeline produces navigable structure across multiple layers:
 
-- setup and pipeline orchestration
-- overview, dimensions, patterns, archetypes, and potentials
-- narrative arc and tension reading
-- neurodivergence screening with explicit caveats
-- semantic map plus local vector search
-- prompt export and integration surfaces
+- **Dimensions** — six-axis profile (psychological, spiritual, anthropological, social, creative, professional) with five depth levels from surface behavior to archetypal core
+- **Semantic map** — entities, themes, and relationships as a knowledge graph
+- **Archetypes** — dominant, secondary, emergent, and golden shadow figures in tension
+- **Narrative arc** — life chapters, current tension point, possible resolutions
+- **Patterns and potentials** — cross-validated behavioral signals with confidence scores
+- **Neurodivergence screening** — evidence-based, explicitly not diagnosis
 
 ---
 
