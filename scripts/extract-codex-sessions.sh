@@ -12,8 +12,8 @@ PROMPT_FILE="$PROMPT_DIR/extraction.txt"
 
 if [ ! -f "$SOURCE" ]; then
   echo "ERROR: Source file not found: $SOURCE"
-  echo "Usage: $0 [path-to-codex-history.md]"
-  echo "Or set: PSYCHE_CODEX_HISTORY=/path/to/file.md"
+  echo "Usage: $0 [path-to-codex-history.md|path-to-history.jsonl]"
+  echo "Or set: PSYCHE_CODEX_HISTORY=/path/to/file"
   exit 1
 fi
 

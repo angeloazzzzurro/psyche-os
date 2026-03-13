@@ -2,11 +2,11 @@ import { SectionHead, Expandable, TwoCol, Cite, References, ConfidenceBar, Explo
 import { directionalVector } from '../data/loader'
 
 const BIG_FIVE = [
-  { trait: 'Openness', score: 0.92, note: 'Cross-domain exploration, philosophical depth' },
-  { trait: 'Conscientiousness', score: 0.58, note: 'High in body domain, lower in project completion' },
-  { trait: 'Extraversion', score: 0.35, note: 'Burst communication, deep-dive preference' },
-  { trait: 'Agreeableness', score: 0.52, note: 'Sovereignty preference, collaborative when engaged' },
-  { trait: 'Neuroticism', score: 0.48, note: 'Existential anxiety present but managed through structure' },
+  { trait: 'Openness', score: 0.92, note: 'Wide-ranging curiosity; philosophical and cross-domain thinking come naturally' },
+  { trait: 'Conscientiousness', score: 0.58, note: 'Strong discipline in embodied practices; building rhythm in knowledge work' },
+  { trait: 'Extraversion', score: 0.35, note: 'Depth orientation; recharges through solitude and focused, uninterrupted work' },
+  { trait: 'Agreeableness', score: 0.52, note: 'Strong self-direction; genuinely collaborative when values and purpose align' },
+  { trait: 'Neuroticism', score: 0.48, note: 'Rich inner emotional life; uses structure and somatic practice as grounding' },
 ]
 
 const DAILY_PHASES = [
@@ -53,9 +53,9 @@ const LIFE_PHASES = [
     label: 'The Seeker',
     period: '2024-2025',
     color: 'bg-purple-500',
-    description: 'Deep philosophical turn. Bateson, Vedanta, gnosticism. Consumption-production asymmetry peaks.',
+    description: 'Deep philosophical turn. Bateson, Vedanta, gnosticism. A long season of wide absorption and inner integration.',
     dominant: 'Empirical-mystical, abstraction descent',
-    note: 'Social dimension remains thin',
+    note: 'Inner richness growing; social depth slowly opening',
   },
   {
     label: 'The Throughline',
@@ -72,7 +72,7 @@ const DIMENSION_EVOLUTION = [
   { dimension: 'Creative', trajectory: 'Emerged mid-timeline, plateaued', level: 0.65 },
   { dimension: 'Psychological', trajectory: 'Deepening, especially metacognitive awareness', level: 0.78 },
   { dimension: 'Spiritual', trajectory: 'Late emergence, now strong', level: 0.72 },
-  { dimension: 'Social', trajectory: 'Consistently thin across all phases', level: 0.42 },
+  { dimension: 'Social', trajectory: 'Slowly opening; quality of connection valued over quantity', level: 0.42 },
   { dimension: 'Anthropological', trajectory: 'Moderate, stable', level: 0.55 },
 ]
 
@@ -246,6 +246,19 @@ function DirectionalVectorSection() {
 export default function InsightsView() {
   return (
     <div className="space-y-20">
+
+      {/* ── Breathing pause ─────────────────────────────────────── */}
+      <div className="breath-pause">
+        <p className="breath-pause-text">
+          Prima di leggere,<br />
+          <em>respira.</em>
+        </p>
+        <p className="breath-pause-sub">
+          Questi dati descrivono tendenze osservate — non verità immutabili.
+          Leggi con curiosità, non con giudizio.
+        </p>
+      </div>
+
       {/* Directional Vector */}
       <DirectionalVectorSection />
 
@@ -311,10 +324,10 @@ export default function InsightsView() {
           <Expandable
             renderTitle={<div className="flex items-center gap-3"><span className="text-sm font-medium text-[color:var(--ink)]">Social Depth Investment</span></div>}
             explore={<ExploreButton finding="Social Depth Investment" context="The Social dimension scores lowest at 0.47: a structural observation, not a deficit." />}
-            summary="The Social dimension scores lowest at 0.47: a structural observation, not a deficit."
+            summary="Social depth is still unfolding — a structural pattern, not a ceiling."
           >
             <p className="text-sm leading-relaxed text-[color:var(--ink-soft)]">
-              This is not a deficit judgment but a structural observation: the compensatory systems (sovereignty, infrastructure, intellectual depth) are highly developed, while relational bandwidth remains thin.
+              The pattern here is structural, not a character flaw: what was poured into intellectual depth, infrastructure, and somatic discipline hasn't yet flowed equally into relational bandwidth. That's a trajectory, not a fixed trait.
             </p>
             <Practice text="One deep conversation per week with no agenda, no problem to solve, no information to exchange. Pure relational presence." />
             <References>

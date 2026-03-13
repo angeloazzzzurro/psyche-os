@@ -27,7 +27,8 @@ while true; do
   git add -A
 
   if ! bash scripts/guardrails.sh --check-staged; then
-    echo "[auto-push] guardrails bloccano il push; riprovo tra ${INTERVAL_SECONDS}s"
+    echo "[auto-push] guardrails bloccano il push; rimozione stage e riprovo tra ${INTERVAL_SECONDS}s"
+    git restore --staged . 2>/dev/null || git reset HEAD . 2>/dev/null || true
     sleep "$INTERVAL_SECONDS"
     continue
   fi

@@ -4,12 +4,51 @@ import { LinkIcon, CogIcon, ChartIcon, SearchIcon } from '../components/icons'
 import { crossValidatedPatterns, dimensionalScores, narrativeArc } from '../data/loader'
 import { useI18n } from '../i18n'
 
+// ── Streak helpers ───────────────────────────────────────────────────
+
+function getWeekKey(): string {
+  const now = new Date()
+  const year = now.getFullYear()
+  const startOfYear = new Date(year, 0, 1)
+  const week = Math.ceil(((now.getTime() - startOfYear.getTime()) / 86400000 + startOfYear.getDay() + 1) / 7)
+  return `${year}-W${week}`
+}
+
+function computeStreak(): number {
+  const stored = localStorage.getItem('psyche-visit-dates')
+  const dates: string[] = stored ? JSON.parse(stored) : []
+  const today = new Date().toDateString()
+  if (!dates.includes(today)) {
+    dates.push(today)
+    localStorage.setItem('psyche-visit-dates', JSON.stringify(dates))
+  }
+  const unique = [...new Set(dates)].sort().reverse()
+  let streak = 0
+  let cursor = new Date()
+  for (const d of unique) {
+    const expected = cursor.toDateString()
+    if (d === expected) {
+      streak++
+      cursor.setDate(cursor.getDate() - 1)
+    } else {
+      break
+    }
+  }
+  return streak
+}
+
 type DimensionStat = { name: string; score: number }
 
 export default function DashboardView() {
   const { t } = useI18n()
   const [name, setName] = useState('')
   const [goal, setGoal] = useState('')
+  const [intention, setIntention] = useState<string>(() => {
+    const weekKey = `psyche-intention-${getWeekKey()}`
+    return localStorage.getItem(weekKey) ?? ''
+  })
+  const [intentionSaved, setIntentionSaved] = useState(false)
+  const [streak] = useState<number>(computeStreak)
   const [glassMode, setGlassMode] = useState<'soft' | 'intense'>(() => {
     const saved = localStorage.getItem('psyche-dashboard-glass')
     return saved === 'intense' ? 'intense' : 'soft'
@@ -18,6 +57,13 @@ export default function DashboardView() {
   useEffect(() => {
     localStorage.setItem('psyche-dashboard-glass', glassMode)
   }, [glassMode])
+
+  const saveIntention = () => {
+    const weekKey = `psyche-intention-${getWeekKey()}`
+    localStorage.setItem(weekKey, intention)
+    setIntentionSaved(true)
+    setTimeout(() => setIntentionSaved(false), 2000)
+  }
 
   const navigate = (view: string) => {
     window.dispatchEvent(new CustomEvent('navigate', { detail: view }))
@@ -49,6 +95,40 @@ export default function DashboardView() {
         title={t('dashboard.title')}
         subtitle={t('dashboard.subtitle')}
       />
+
+      {/* Streak + intenzione settimanale */}
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-[auto_1fr]">
+        {/* Streak */}
+        <div className="liquid-glass-card flex flex-col items-center justify-center gap-1 rounded-2xl border border-[color:var(--line)] bg-[color:var(--panel)] px-6 py-4 shadow-[var(--shadow-card)] min-w-[9rem]">
+          <span className="text-4xl font-bold tabular-nums text-[color:var(--accent)]">{streak}</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--ink-faint)]">
+            {streak === 1 ? 'giorno' : 'giorni'} di riflessione
+          </span>
+          <span className="mt-0.5 text-[11px] text-[color:var(--ink-faint)]">continuità</span>
+        </div>
+
+        {/* Intenzione settimana */}
+        <div className="liquid-glass-panel rounded-2xl border border-[color:var(--line)] bg-[color:var(--panel)] p-5 shadow-[var(--shadow-card)]">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-[color:var(--ink-faint)]">Intenzione della settimana</h3>
+          <p className="mt-0.5 mb-3 text-xs text-[color:var(--ink-faint)]">Qual è la qualità che vuoi portare questa settimana?</p>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={intention}
+              onChange={e => setIntention(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && saveIntention()}
+              placeholder="es. presenza, pazienza, slancio creativo…"
+              className="liquid-glass-input flex-1 rounded-lg border border-[color:var(--line-strong)] bg-[color:var(--paper-strong)] px-3 py-2 text-sm text-[color:var(--ink)]"
+            />
+            <button
+              onClick={saveIntention}
+              className="rounded-lg border border-[color:var(--accent)] bg-[color:var(--accent-tint)] px-3 py-2 text-sm font-semibold text-[color:var(--accent)] transition-colors hover:bg-[color:var(--accent)] hover:text-white"
+            >
+              {intentionSaved ? '✓' : 'Salva'}
+            </button>
+          </div>
+        </div>
+      </section>
 
       <section className="-mt-4 flex justify-end">
         <div className="liquid-glass-chip inline-flex items-center gap-1 rounded-full p-1">
