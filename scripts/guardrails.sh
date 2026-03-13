@@ -36,7 +36,10 @@ validate_staged() {
 
   while IFS= read -r path; do
     case "$path" in
-      sources/*|extractions/*|psyche_extraction.json|psyche_os_extraction.json|.env|.env.*)
+      sources/*|extractions/*|psyche_extraction.json|psyche_os_extraction.json|.env|.env.*|\
+      *.key|*.pem|*.crt|*.p12|*.pfx|*.cer|*.der|\
+      .git/config|.gitconfig|\
+      *id_rsa*|*id_ed25519*|*id_ecdsa*)
         blocked+="$path"$'\n'
         ;;
       output/*)

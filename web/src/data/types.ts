@@ -194,7 +194,7 @@ export interface Synthesis {
   directionalVector?: DirectionalVector
   modelLimitations?: string[]
   simulacrumIndex?: number
-  sensorData?: SensorialData[] // <--- AGGIUNTO QUI
+  sensorData?: SensorialData[]
 }
 
 /** A single neurodivergence dimension with behavioral evidence */
@@ -215,7 +215,7 @@ export interface NeurodivergenceIndicator {
   references: { author: string; work: string; year: string; detail: string }[]
 }
 
-export type ViewId = 'dashboard' | 'sources' | 'overview' | 'genome' | 'patterns' | 'archetypes' | 'dimensions' | 'potentials' | 'narrative' | 'insights' | 'iq' | 'neurodivergence' | 'map' | 'integration' | 'diary' | 'timeline' | 'sensorial' | 'sensOrial';
+export type ViewId = 'dashboard' | 'sources' | 'overview' | 'genome' | 'patterns' | 'archetypes' | 'dimensions' | 'potentials' | 'narrative' | 'insights' | 'iq' | 'neurodivergence' | 'map' | 'integration' | 'diary' | 'timeline' | 'sensorial' | 'contact';
 
 // ── Temporal stratification ────────────────────────────────────────
 

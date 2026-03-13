@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/michelericco/psyche-os#readme",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
     "zod": "^3.23.0"
   },
   "devDependencies": {
