@@ -289,5 +289,15 @@ export interface SensorialData {
   oxygenSaturation?: number
   temperature?: number
   stressLevel?: number
+  systolicBP?: number // pressione sistolica
+  diastolicBP?: number // pressione diastolica
+  respirationRate?: number // atti respiratori/min
+  muscleMass?: number // kg o %
+  bodyFat?: number // %
+  hydration?: number // %
+  postureScore?: number // valutazione posturale
+  movementQuality?: number // valutazione movimento
+  skinConductance?: number // GSR
   raw?: Record<string, any>
+  notes?: string // annotazioni contestuali
 }

@@ -52,9 +52,9 @@ export const narrativeArc: NarrativeArc = synthesis.narrativeArc
 export const directionalVector: DirectionalVector | undefined = synthesis.directionalVector
 export const modelLimitations: string[] = synthesis.modelLimitations ?? []
 export const simulacrumIndex: number = synthesis.simulacrumIndex ?? 0
+export const sensorData: unknown[] = synthesis.sensorData ?? []
 
-// Sensorial data export
-export const sensorData = (synthesis as any).sensorData ?? []
+// ...existing code...
 
 // ---------------------------------------------------------------------------
 // Hardcoded data (not in synthesis JSON — entities, themes, genome, etc.)
@@ -487,10 +487,10 @@ export const allConnections: Connection[] = [
 ]
 
 export const DIMENSION_COLORS: Record<string, string> = {
-  Psychological: '#9f4a34',
-  Spiritual: '#82654b',
-  Anthropological: '#a77c58',
-  Social: '#8c8272',
-  Creative: '#5f6e58',
-  Professional: '#4e5f63',
+  Psychological: '#ea4335',
+  Spiritual: '#a142f4',
+  Anthropological: '#fbbc05',
+  Social: '#34a853',
+  Creative: '#d81b60',
+  Professional: '#4285f4',
 }

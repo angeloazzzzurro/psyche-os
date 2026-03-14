@@ -80,12 +80,54 @@ psyche_llm_run() {
 
   if [ $exit_code -eq 0 ] && [ "$size" -gt 100 ]; then
     echo "Done! Output: $output_file (${size} bytes)"
+    rm -f "$log_file"
   else
     echo "FAILED (exit=$exit_code, size=$size)"
-    echo "Log: $log_file"
+    echo "Log:"
     cat "$log_file" 2>/dev/null | tail -10
+    rm -f "$log_file"
     return 1
   fi
+}
+
+# --- Redact secrets from a file before sending to LLM ---
+# Usage: psyche_redact_secrets <file>
+# Scans for common secret patterns (API keys, tokens, credentials), replaces
+# them with [REDACTED_<TYPE>] in-place, and reports findings to stderr.
+psyche_redact_secrets() {
+  local file="$1"
+  # Pass path as sys.argv[1] — never interpolate file paths into Python source.
+  python3 -c "
+import sys, re
+path = sys.argv[1]
+text = open(path, encoding='utf-8').read()
+patterns = [
+    ('API_KEY_SK',    r'sk-[A-Za-z0-9_-]{20,}'),
+    ('ANTHROPIC_KEY', r'sk-ant-[A-Za-z0-9_-]{20,}'),
+    ('AWS_AKID',      r'AKIA[A-Z0-9]{16}'),
+    ('GCP_API_KEY',   r'AIza[0-9A-Za-z_-]{35}'),
+    ('GH_TOKEN',      r'ghp_[A-Za-z0-9]{36}'),
+    ('GH_TOKEN_SVC',  r'ghs_[A-Za-z0-9]{36}'),
+    ('SLACK_TOKEN',   r'xox[baprs]-[A-Za-z0-9-]{10,}'),
+    ('BEARER',        r'(?i)Bearer[ \t]+[A-Za-z0-9._~+/=-]+'),
+    ('AUTH_HEADER',   r'(?i)Authorization[ \t]*:[ \t]*[^\n\r]+'),
+    ('PEM_KEY',       r'-----BEGIN [A-Z ]+ KEY-----[\s\S]*?-----END [A-Z ]+ KEY-----'),
+    ('URL_CRED',      r'https?://[A-Za-z0-9._~%-]+:[A-Za-z0-9._~%@!-]+@[^\s]+'),
+]
+counts = {}
+for label, pat in patterns:
+    def repl(m, lbl=label):
+        counts[lbl] = counts.get(lbl, 0) + 1
+        return '[REDACTED_' + lbl + ']'
+    text = re.sub(pat, repl, text)
+open(path, 'w', encoding='utf-8').write(text)
+total = sum(counts.values())
+if counts:
+    summary = ', '.join(str(v) + ' ' + k for k, v in sorted(counts.items()))
+    print('[redact] Masked ' + str(total) + ' secret(s): ' + summary, file=sys.stderr)
+else:
+    print('[redact] No secrets detected.', file=sys.stderr)
+" -- "$file"
 }
 
 # --- Strip markdown fences from JSON output ---

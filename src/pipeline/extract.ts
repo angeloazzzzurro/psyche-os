@@ -132,6 +132,40 @@ async function loadExtractionPrompt(): Promise<string> {
 }
 
 // ---------------------------------------------------------------------------
+// Secret redaction
+// ---------------------------------------------------------------------------
+
+/** Redacts common secret patterns before sending content to the LLM. */
+function redactSecrets(text: string): { redacted: string; count: number } {
+  type PatternEntry = [string, RegExp];
+  const patterns: PatternEntry[] = [
+    ["API_KEY_SK",    /sk-[A-Za-z0-9_-]{20,}/g],
+    ["ANTHROPIC_KEY", /sk-ant-[A-Za-z0-9_-]{20,}/g],
+    ["AWS_AKID",      /AKIA[A-Z0-9]{16}/g],
+    ["GCP_API_KEY",   /AIza[0-9A-Za-z_-]{35}/g],
+    ["GH_TOKEN",      /ghp_[A-Za-z0-9]{36}/g],
+    ["GH_TOKEN_SVC",  /ghs_[A-Za-z0-9]{36}/g],
+    ["SLACK_TOKEN",   /xox[baprs]-[A-Za-z0-9-]{10,}/g],
+    ["BEARER",        /Bearer[ \t]+[A-Za-z0-9._~+/=-]+/gi],
+    ["AUTH_HEADER",   /Authorization[ \t]*:[ \t]*[^\n\r]+/gi],
+    ["PEM_KEY",       /-----BEGIN [A-Z ]+ KEY-----[\s\S]*?-----END [A-Z ]+ KEY-----/g],
+    ["URL_CRED",      /https?:\/\/[A-Za-z0-9._~%-]+:[A-Za-z0-9._~%@!-]+@[^\s]+/g],
+  ];
+  let redacted = text;
+  let count = 0;
+  const found: string[] = [];
+  for (const [label, re] of patterns) {
+    let localCount = 0;
+    redacted = redacted.replace(re, () => { localCount++; return `[REDACTED_${label}]`; });
+    if (localCount > 0) { found.push(`${localCount} ${label}`); count += localCount; }
+  }
+  if (count > 0) {
+    console.warn(`[extract] Redacted ${count} secret(s) before LLM: ${found.join(", ")}`);
+  }
+  return { redacted, count };
+}
+
+// ---------------------------------------------------------------------------
 // Extraction function
 // ---------------------------------------------------------------------------
 
@@ -153,7 +187,8 @@ export async function extractSemantics(
   }
 
   const systemPrompt = await loadExtractionPrompt();
-  const userMessage = `Source family: ${document.sourceDir}\n\n---\n\n${document.content.slice(0, 80_000)}`;
+  const { redacted: safeContent } = redactSecrets(document.content.slice(0, 80_000));
+  const userMessage = `Source family: ${document.sourceDir}\n\n---\n\n${safeContent}`;
 
   const client = new Anthropic({ apiKey: key });
   let rawText: string;

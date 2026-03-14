@@ -4,9 +4,9 @@ import { useI18n } from '../i18n'
 /** Two-column layout: visual content left, text/analysis right on desktop */
 export function TwoCol({ left, right }: { left: ReactNode; right: ReactNode }) {
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(18rem,0.92fr)] lg:gap-16 items-start">
-      <div>{left}</div>
-      <div>{right}</div>
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(18rem,0.92fr)] lg:gap-16 items-center justify-center">
+      <div className="material-card material-shadow" style={{margin: '0 auto', maxWidth: '600px'}}>{left}</div>
+      <div className="material-card material-shadow" style={{margin: '0 auto', maxWidth: '600px'}}>{right}</div>
     </div>
   )
 }
@@ -33,7 +33,7 @@ export function Expandable({
   return (
     <div
       className="border-b border-[color:var(--line)] pb-6 transition-colors duration-200"
-      style={{ backgroundColor: open ? 'rgba(246, 237, 224, 0.34)' : 'transparent' }}
+      style={{ backgroundColor: open ? 'var(--surface-tint)' : 'transparent' }}
     >
       <button
         type="button"
@@ -93,7 +93,7 @@ export function CopyBlock({ code, label }: { code: string; label?: string }) {
   }, [code])
 
   return (
-    <div>
+    <div className="material-card material-shadow" style={{marginBottom: '1.2rem', background: 'var(--panel)'}}>
       <div className="mb-2 flex items-center justify-between gap-4">
         {label ? (
           <div className="text-[0.62rem] uppercase tracking-[0.3em] text-[color:var(--ink-faint)]">
@@ -104,7 +104,7 @@ export function CopyBlock({ code, label }: { code: string; label?: string }) {
         )}
         <button
           onClick={handleCopy}
-          className="shrink-0 text-[0.62rem] uppercase tracking-[0.28em] text-[color:var(--ink-faint)] transition-colors hover:text-[color:var(--accent)] cursor-pointer"
+          className="material-button blue shrink-0 text-[0.62rem] uppercase tracking-[0.28em]"
         >
           {copied ? t('shared.copied') : t('shared.copy')}
         </button>
@@ -167,14 +167,14 @@ export function ConfidenceBar({
   color?: string
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="h-px flex-1 overflow-hidden bg-[color:var(--line-strong)]">
+    <div className="flex items-center gap-2" style={{justifyContent: 'center'}}>
+      <div className="h-px flex-1 overflow-hidden bg-[color:var(--line-strong)]" style={{background: 'var(--line)', height: '4px', borderRadius: '2px'}}>
         <div
           className={`h-full ${color}`}
-          style={{ width: `${value * 100}%` }}
+          style={{ width: `${value * 100}%`, background: 'var(--accent)', height: '4px', borderRadius: '2px' }}
         />
       </div>
-      <span className="w-8 text-right text-[0.72rem] font-mono text-[color:var(--ink-faint)]">
+      <span className="w-8 text-right text-[0.72rem] font-mono" style={{color: 'var(--ink)'}}>
         {Math.round(value * 100)}%
       </span>
     </div>
@@ -192,14 +192,14 @@ export function SectionHead({
   explanation?: string
 }) {
   return (
-    <div className="mb-10">
-      <div className="mb-4 h-px w-20 bg-[color:var(--accent)]" />
+    <div className="mb-10 material-card material-shadow" style={{background: 'var(--paper-strong)', textAlign: 'center'}}>
+      <div className="mb-4 h-px w-20 bg-[color:var(--accent)] mx-auto" />
       <h2 className="text-[clamp(1.8rem,4.5vw,3.25rem)] leading-[0.98] text-[color:var(--ink)]">
         {title}
       </h2>
-      {subtitle && <p className="mt-3 max-w-3xl text-[0.98rem] leading-8 text-[color:var(--ink-soft)]">{subtitle}</p>}
+      {subtitle && <p className="mt-3 max-w-3xl text-[0.98rem] leading-8 text-[color:var(--ink-soft)] mx-auto">{subtitle}</p>}
       {explanation && (
-        <p className="mt-4 max-w-3xl text-[0.8rem] leading-7 text-[color:var(--ink-faint)]">
+        <p className="mt-4 max-w-3xl text-[0.8rem] leading-7 text-[color:var(--ink-faint)] mx-auto">
           {explanation}
         </p>
       )}
@@ -246,7 +246,8 @@ export function ExploreButton({
     <button
       onClick={(e) => { e.stopPropagation(); handleCopy() }}
       title={t('shared.explorePromptTitle')}
-      className="inline-flex items-center gap-1 text-[0.52rem] uppercase tracking-[0.18em] text-[color:var(--ink-faint)] transition-colors hover:text-[color:var(--accent)] cursor-pointer"
+      className="material-button blue inline-flex items-center gap-1 text-[0.52rem] uppercase tracking-[0.18em]"
+      style={{fontSize: '0.72rem', padding: '0.4rem 1rem'}}
     >
       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -284,8 +285,8 @@ export function DriftBadge({
         fontSize:      '0.65rem',
         fontWeight:    700,
         letterSpacing: '0.04em',
-        color:         up ? '#4a8c3c' : '#b03820',
-        background:    up ? 'rgba(74,140,60,0.10)' : 'rgba(176,56,32,0.10)',
+        color:         up ? '#34a853' : '#ea4335',
+        background:    up ? 'rgba(52,168,83,0.10)' : 'rgba(234,67,53,0.10)',
         borderRadius:  '4px',
         padding:       '0.1em 0.4em',
         marginLeft:    '0.45em',
@@ -302,10 +303,10 @@ export function DriftBadge({
 /** State badge */
 export function StateBadge({ state }: { state: string }) {
   const styles: Record<string, string> = {
-    Expressed: 'text-[#4f6b55] border-[#4f6b55]/30 bg-[#4f6b55]/8',
-    Emerging: 'text-[#7a6151] border-[#7a6151]/30 bg-[#7a6151]/8',
-    Latent: 'text-[#a07a42] border-[#a07a42]/30 bg-[#a07a42]/8',
-    Sabotaged: 'text-[#8b4632] border-[#8b4632]/30 bg-[#8b4632]/8',
+    Expressed: 'text-[#34a853] border-[#34a853]/30 bg-[#34a853]/8',
+    Emerging: 'text-[#4285f4] border-[#4285f4]/30 bg-[#4285f4]/8',
+    Latent: 'text-[#fbbc05] border-[#fbbc05]/30 bg-[#fbbc05]/8',
+    Sabotaged: 'text-[#ea4335] border-[#ea4335]/30 bg-[#ea4335]/8',
   }
   return (
     <span className={`border px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.18em] ${styles[state] ?? 'text-[color:var(--ink-soft)] border-[color:var(--line)] bg-[color:var(--panel)]'}`}>
