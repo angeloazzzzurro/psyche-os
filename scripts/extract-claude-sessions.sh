@@ -27,6 +27,7 @@ echo "CLI: $PSYCHE_CLI"
 echo "Source: $SOURCE"
 
 TMP=$(mktemp)
+trap 'rm -f "$TMP"' EXIT INT TERM
 cat "$PROMPT_FILE" > "$TMP"
 echo -e "\n\n--- SOURCE DATA (Claude Code Sessions) ---\n" >> "$TMP"
 if [ -d "$SOURCE" ]; then
@@ -41,6 +42,7 @@ fi
 SIZE=$(/usr/bin/wc -c < "$TMP" | tr -d ' ')
 echo "Input size: ${SIZE} bytes"
 
+psyche_redact_secrets "$TMP"
 psyche_llm_run "$TMP" "$OUTPUT_DIR/extraction-claude-sessions.json"
 psyche_strip_fences "$OUTPUT_DIR/extraction-claude-sessions.json"
 rm -f "$TMP"

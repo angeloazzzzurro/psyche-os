@@ -251,5 +251,37 @@
     "No personal/reflective writing in sources — only operational logs",
     "IQ estimate not applicable — insufficient cognitive signal in this dataset"
   ],
-  "simulacrumIndex": 0.35
+  "simulacrumIndex": 0.35,
+  "sensorData": [
+    {
+      "timestamp": "2026-03-14T08:00:00Z",
+      "source": "Apple Watch",
+      "heartRate": 68,
+      "steps": 1200,
+      "sleepHours": 7.2,
+      "temperature": 36.5,
+      "stressLevel": 22,
+      "notes": "Riposo notturno buono"
+    },
+    {
+      "timestamp": "2026-03-14T12:00:00Z",
+      "source": "Fitbit",
+      "heartRate": 82,
+      "steps": 5400,
+      "sleepHours": 0,
+      "temperature": 36.7,
+      "stressLevel": 35,
+      "notes": "Passeggiata post pranzo"
+    },
+    {
+      "timestamp": "2026-03-14T18:00:00Z",
+      "source": "Oura Ring",
+      "heartRate": 74,
+      "steps": 8000,
+      "sleepHours": 0,
+      "temperature": 36.6,
+      "stressLevel": 28,
+      "notes": "Attività fisica moderata"
+    }
+  ]
 }
