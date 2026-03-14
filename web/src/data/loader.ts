@@ -12,6 +12,72 @@ import type {
 } from './types'
 import synthesisRaw from './synthesis-unified.json'
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value)
+}
+
+function asString(value: unknown, fallback = ''): string {
+  return typeof value === 'string' ? value : fallback
+}
+
+function asNumber(value: unknown, fallback = 0): number {
+  return typeof value === 'number' && Number.isFinite(value) ? value : fallback
+}
+
+function asStringArray(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : []
+}
+
+function normalizeDirectionalVector(value: unknown): DirectionalVector | undefined {
+  if (!isRecord(value)) return undefined
+
+  const headingSource = isRecord(value.heading) ? value.heading : undefined
+  const heading = {
+    from: asString(headingSource?.from, 'Current operating pattern'),
+    toward: asString(headingSource?.toward, 'Integrated AI workflow'),
+    through: asString(headingSource?.through, 'Small repeated experiments'),
+    confidence: asNumber(headingSource?.confidence, asNumber(value.momentum, 0.5)),
+    justification: asString(headingSource?.justification, asString(value.summary, 'Directional estimate based on available synthesis data.')),
+  }
+
+  const axes = Array.isArray(value.axes)
+    ? value.axes
+        .filter(isRecord)
+        .map((axis) => ({
+          axis: asString(axis.axis, 'Direction'),
+          leftPole: asString(axis.leftPole, 'Current'),
+          rightPole: asString(axis.rightPole, 'Target'),
+          current: asNumber(axis.current, 0),
+          recommendedDrift: asNumber(axis.recommendedDrift, 0),
+          rationale: asString(axis.rationale, ''),
+          evidence: asStringArray(axis.evidence),
+        }))
+    : []
+
+  const constraints = asStringArray(value.constraints)
+  const legacyObstacles = asStringArray(value.obstacles)
+
+  return {
+    summary: asString(value.summary, 'Directional estimate'),
+    coordinateSystem: asString(value.coordinateSystem, 'Normalized drift map'),
+    axes,
+    heading,
+    constraints: constraints.length > 0 ? constraints : legacyObstacles,
+    attractors: asStringArray(value.attractors),
+    antiVectors: asStringArray(value.antiVectors),
+    nextExperimentSurfaces: Array.isArray(value.nextExperimentSurfaces)
+      ? value.nextExperimentSurfaces
+          .filter(isRecord)
+          .map((surface) => ({
+            surface: asString(surface.surface, 'Experiment surface'),
+            whyThisSurface: asString(surface.whyThisSurface, ''),
+            successSignal: asString(surface.successSignal, ''),
+            failureSignal: asString(surface.failureSignal, ''),
+          }))
+      : [],
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Synthesis data (loaded from pipeline output)
 // ---------------------------------------------------------------------------
@@ -49,7 +115,7 @@ export const allPotentials: Potential[] = synthesis.topPotentials
 export const narrativeArc: NarrativeArc = synthesis.narrativeArc
 
 // New data from synthesis (not previously available)
-export const directionalVector: DirectionalVector | undefined = synthesis.directionalVector
+export const directionalVector: DirectionalVector | undefined = normalizeDirectionalVector(synthesis.directionalVector)
 export const modelLimitations: string[] = synthesis.modelLimitations ?? []
 export const simulacrumIndex: number = synthesis.simulacrumIndex ?? 0
 export const sensorData: unknown[] = synthesis.sensorData ?? []

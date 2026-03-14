@@ -14,6 +14,28 @@ import type {
 const STORAGE_KEY = 'psyche-os:timeline'
 const MIN_SCORE_DELTA = 0.03   // ignore micro-variations below this threshold
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value)
+}
+
+function isSnapshot(value: unknown): value is SynthesisSnapshot {
+  if (!isRecord(value)) return false
+
+  return (
+    typeof value.id === 'string' &&
+    typeof value.createdAt === 'string' &&
+    isRecord(value.data)
+  )
+}
+
+function isTimeline(value: unknown): value is SynthesisTimeline {
+  if (!isRecord(value)) return false
+  if (!Array.isArray(value.snapshots)) return false
+  if (typeof value.activeId !== 'string') return false
+
+  return value.snapshots.every(isSnapshot)
+}
+
 // ── Delta computation ──────────────────────────────────────────────
 
 export function computeDelta(
@@ -104,7 +126,10 @@ export function computeDelta(
 export function loadTimeline(): SynthesisTimeline | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? (JSON.parse(raw) as SynthesisTimeline) : null
+    if (!raw) return null
+
+    const parsed: unknown = JSON.parse(raw)
+    return isTimeline(parsed) ? parsed : null
   } catch {
     return null
   }

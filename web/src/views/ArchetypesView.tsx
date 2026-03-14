@@ -3,7 +3,6 @@ import { archetypeMapping, crossValidatedPatterns } from '../data/loader'
 import type { ArchetypeEntry } from '../data/types'
 import {
   SectionHead,
-  TwoCol,
   Expandable,
   ConfidenceBar,
   Cite,
@@ -38,6 +37,15 @@ const ROLE_CONFIG: Record<ArchetypeRole, { label: string; svgColor: string; desc
 
 const ROLES: ArchetypeRole[] = ['dominant', 'secondary', 'emergent', 'goldenShadow']
 
+const SECTION_IDS = {
+  map: 'archetype-map',
+  profiles: 'archetype-profiles',
+} as const
+
+function scrollToSection(sectionId: string) {
+  document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
 // Helper: get patterns related to this archetype
 function getRelatedPatterns(role: ArchetypeRole): typeof crossValidatedPatterns {
   const entry = archetypeMapping[role]
@@ -48,9 +56,11 @@ function getRelatedPatterns(role: ArchetypeRole): typeof crossValidatedPatterns 
 }
 
 function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: ArchetypeRole | null; onSelectRole: (role: ArchetypeRole | null) => void }) {
-  const cx = 240
-  const cy = 200
-  const r = 120
+  const width = 760
+  const height = 620
+  const cx = width / 2
+  const cy = height / 2
+  const r = 205
 
   const [hoveredRole, setHoveredRole] = useState<ArchetypeRole | null>(null)
   const [pointer, setPointer] = useState({ x: cx, y: cy, active: false })
@@ -69,7 +79,7 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
       return { role: node.role, distance: Math.hypot(dx, dy) }
     })
     const nearest = distances.sort((a, b) => a.distance - b.distance)[0]
-    if (!nearest || nearest.distance > 100) return null
+    if (!nearest || nearest.distance > 150) return null
     return nearest.role
   }, [nodes, pointer.x, pointer.y])
 
@@ -80,8 +90,8 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
 
   const handlePointerMove: React.PointerEventHandler<SVGSVGElement> = (e) => {
     const rect = e.currentTarget.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width) * 480
-    const y = ((e.clientY - rect.top) / rect.height) * 400
+    const x = ((e.clientX - rect.left) / rect.width) * width
+    const y = ((e.clientY - rect.top) / rect.height) * height
     setPointer({ x, y, active: true })
   }
 
@@ -95,10 +105,10 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
   }
 
   return (
-    <div className="flex flex-col items-center py-4 gap-3">
+    <div className="flex flex-col items-center gap-4 py-2">
       <svg
-        viewBox="0 0 480 400"
-        className="w-full max-w-md cursor-crosshair"
+        viewBox={`0 0 ${width} ${height}`}
+        className="aspect-[1.23/1] w-full max-w-5xl cursor-crosshair"
         xmlns="http://www.w3.org/2000/svg"
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
@@ -114,7 +124,7 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
         <circle
           cx={pointer.x}
           cy={pointer.y}
-          r={pointer.active ? 80 : 0}
+          r={pointer.active ? 132 : 0}
           fill="url(#archetypeGlow)"
           style={{ transition: 'r 200ms ease-out' }}
         />
@@ -158,7 +168,7 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
           textAnchor="middle"
           dominantBaseline="central"
           fill="#94a3b8"
-          fontSize="10"
+          fontSize="12"
           fontWeight="500"
           letterSpacing="0.2em"
           style={{ transition: 'all 140ms ease-out' }}
@@ -197,7 +207,7 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
               <circle
                 cx={x}
                 cy={y}
-                r={isSelected ? 28 : isFocused ? 22 : 16}
+                r={isSelected ? 44 : isFocused ? 34 : 24}
                 fill={config.svgColor}
                 opacity={isSelected ? 0.3 : isFocused ? 0.18 : 0.08}
                 style={{ transition: 'all 180ms ease-out' }}
@@ -206,7 +216,7 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
                 <circle
                   cx={x}
                   cy={y}
-                  r={isSelected ? 28 : 16}
+                  r={isSelected ? 44 : 24}
                   fill="none"
                   stroke={config.svgColor}
                   strokeWidth="1.5"
@@ -220,14 +230,14 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
                 textAnchor={anchor}
                 dominantBaseline="central"
                 fill="#64748b"
-                fontSize="8"
+                fontSize="10"
                 letterSpacing="0.15em"
                 style={{ transition: 'all 140ms ease-out', touchAction: 'none' }}
               >
                 {isMultiWordLabel ? (
                   <>
                     <tspan x={x + offsetX + nodeDx} dy="0">{labelParts[0]}</tspan>
-                    <tspan x={x + offsetX + nodeDx} dy="10">{labelParts.slice(1).join(' ')}</tspan>
+                    <tspan x={x + offsetX + nodeDx} dy="12">{labelParts.slice(1).join(' ')}</tspan>
                   </>
                 ) : (
                   config.label
@@ -239,7 +249,7 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
                 textAnchor={anchor}
                 dominantBaseline="central"
                 fill={config.svgColor}
-                fontSize={isFocused ? '12' : '11'}
+                fontSize={isFocused ? '18' : '15'}
                 fontWeight={isSelected ? '700' : '500'}
                 style={{ transition: 'all 160ms ease-out' }}
               >
@@ -250,7 +260,7 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
         })}
       </svg>
 
-      <div className="w-full max-w-md min-h-16 rounded-lg border border-[color:var(--line)] bg-[color:var(--surface)]/40 px-3 py-2">
+      <div className="w-full max-w-5xl min-h-20 rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)]/40 px-4 py-3">
         {activeEntry && activeRole ? (
           <>
             <div className="flex items-center justify-between gap-3">
@@ -264,12 +274,65 @@ function ArchetypeDiagram({ selectedRole, onSelectRole }: { selectedRole: Archet
             </p>
           </>
         ) : (
-          <p className="text-xs text-[color:var(--ink-faint)] leading-relaxed">
-            Clicca su un archetipo per esplorare i dettagli. Muovi il mouse per vedere le relazioni.
+          <p className="text-sm text-[color:var(--ink-faint)] leading-relaxed">
+            Clicca su un archetipo per esplorare i dettagli. Muovi il mouse o tocca i nodi per leggere la relazione con il Self.
           </p>
         )}
       </div>
     </div>
+  )
+}
+
+function ArchetypeNavigator({ selectedRole, onSelectRole }: { selectedRole: ArchetypeRole | null; onSelectRole: (role: ArchetypeRole) => void }) {
+  return (
+    <nav className="sticky top-6 z-10 mb-8 rounded-2xl border border-[color:var(--line)] bg-[color:var(--paper-strong)]/92 p-3 shadow-sm backdrop-blur">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <p className="text-[10px] uppercase tracking-[0.28em] text-[color:var(--ink-faint)]">Navigate</p>
+          <p className="mt-1 text-sm text-[color:var(--ink-soft)]">Salta tra mappa e profili senza scorrere tutta la pagina.</p>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => scrollToSection(SECTION_IDS.map)}
+            className="rounded-full border border-[color:var(--line)] px-3 py-2 text-xs font-medium text-[color:var(--ink)] transition hover:border-[color:var(--accent)] hover:bg-[color:var(--accent-tint)]"
+          >
+            Mappa
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection(SECTION_IDS.profiles)}
+            className="rounded-full border border-[color:var(--line)] px-3 py-2 text-xs font-medium text-[color:var(--ink)] transition hover:border-[color:var(--accent)] hover:bg-[color:var(--accent-tint)]"
+          >
+            Profili
+          </button>
+          {ROLES.map((role) => {
+            const config = ROLE_CONFIG[role]
+            const isSelected = selectedRole === role
+
+            return (
+              <button
+                key={role}
+                type="button"
+                onClick={() => {
+                  onSelectRole(role)
+                  scrollToSection(`profile-${role}`)
+                }}
+                className="rounded-full border px-3 py-2 text-xs font-medium transition"
+                style={{
+                  borderColor: isSelected ? config.svgColor : 'var(--line)',
+                  backgroundColor: isSelected ? `${config.svgColor}14` : 'transparent',
+                  color: isSelected ? config.svgColor : 'var(--ink)',
+                }}
+              >
+                {archetypeMapping[role].archetype}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    </nav>
   )
 }
 
@@ -528,27 +591,32 @@ export default function ArchetypesView() {
 
   return (
     <div className="min-h-screen bg-transparent px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <SectionHead
           title="Archetype Mapping"
           explanation="Jungian archetypes are recurring patterns of personality that emerge across cultures and individuals. This mapping identifies which archetypal energies are most active in your digital traces. Click on any archetype to explore its manifestation, shadow aspects, and connections with validated patterns."
         />
 
+        <ArchetypeNavigator
+          selectedRole={selectedRole}
+          onSelectRole={(role) => setSelectedRole(role)}
+        />
+
         {/* Interactive diagram with detail panel */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left: Diagram & explanation */}
-          <div className="lg:col-span-2 space-y-6">
-            <div>
-              <h3 className="text-sm font-medium text-[color:var(--ink)] mb-4 tracking-wide uppercase">Four Archetypal Positions</h3>
-              <TwoCol
-                left={<ArchetypeDiagram selectedRole={selectedRole} onSelectRole={setSelectedRole} />}
-                right={<PositionExplanations />}
-              />
+        <div id={SECTION_IDS.map} className="scroll-mt-28 mt-8 space-y-6">
+          <div className="space-y-4 text-center">
+            <h3 className="mb-4 text-sm font-medium uppercase tracking-wide text-[color:var(--ink)]">Four Archetypal Positions</h3>
+            <div className="material-card material-shadow mx-auto w-full max-w-[1080px] !max-w-none">
+              <ArchetypeDiagram selectedRole={selectedRole} onSelectRole={setSelectedRole} />
             </div>
           </div>
 
-          {/* Right: Detail panel when selected */}
-          <div className="lg:col-span-1">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 xl:grid-cols-[minmax(18rem,24rem)_minmax(0,1fr)] xl:items-start">
+            <div className="material-card material-shadow !max-w-none xl:sticky xl:top-28">
+              <PositionExplanations />
+            </div>
+
+            <div className="xl:sticky xl:top-28 self-start">
             {selectedRole ? (
               <ArchetypeDetailPanel
                 role={selectedRole}
@@ -562,29 +630,31 @@ export default function ArchetypesView() {
                 </p>
               </div>
             )}
+            </div>
           </div>
         </div>
 
         {/* Expandable sections for all archetypes */}
-        <div className="mt-16">
+        <div id={SECTION_IDS.profiles} className="scroll-mt-28 mt-16">
           <h3 className="text-sm font-medium text-[color:var(--ink)] mb-4 tracking-wide uppercase">Complete Archetype Profiles</h3>
           <div className="space-y-2">
             {ROLES.map((role) => {
               const entry = archetypeMapping[role]
               return (
-                <Expandable
-                  key={role}
-                  explore={
-                    <ExploreButton
-                      finding={entry.archetype}
-                      context={`Manifestation: ${entry.manifestation}. Shadow: ${entry.shadow}`}
-                    />
-                  }
-                  renderTitle={<ArchetypeTitle role={role} entry={entry} />}
-                  summary={entry.manifestation.slice(0, 120) + '...'}
-                >
-                  <ArchetypeExpandedContent entry={entry} />
-                </Expandable>
+                <section key={role} id={`profile-${role}`} className="scroll-mt-32">
+                  <Expandable
+                    explore={
+                      <ExploreButton
+                        finding={entry.archetype}
+                        context={`Manifestation: ${entry.manifestation}. Shadow: ${entry.shadow}`}
+                      />
+                    }
+                    renderTitle={<ArchetypeTitle role={role} entry={entry} />}
+                    summary={entry.manifestation.slice(0, 120) + '...'}
+                  >
+                    <ArchetypeExpandedContent entry={entry} />
+                  </Expandable>
+                </section>
               )
             })}
           </div>

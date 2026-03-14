@@ -200,6 +200,9 @@ function App() {
   }, [commandItems, commandQuery])
 
   const visibleCommandItems = filteredCommandItems.slice(0, 10)
+  const safeActiveCommandIndex = visibleCommandItems.length === 0
+    ? 0
+    : Math.min(activeCommandIndex, visibleCommandItems.length - 1)
 
   const closeCommandPalette = () => {
     setCommandOpen(false)
@@ -305,9 +308,9 @@ function App() {
         return
       }
 
-      if (event.key === 'Enter' && visibleCommandItems[activeCommandIndex]) {
+      if (event.key === 'Enter' && visibleCommandItems[safeActiveCommandIndex]) {
         event.preventDefault()
-        navigateToView(visibleCommandItems[activeCommandIndex].id)
+        navigateToView(visibleCommandItems[safeActiveCommandIndex].id)
         closeCommandPalette()
         return
       }
@@ -333,13 +336,7 @@ function App() {
 
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [activeCommandIndex, commandOpen, visibleCommandItems])
-
-  useEffect(() => {
-    if (activeCommandIndex >= visibleCommandItems.length) {
-      setActiveCommandIndex(0)
-    }
-  }, [activeCommandIndex, visibleCommandItems.length])
+  }, [commandOpen, safeActiveCommandIndex, visibleCommandItems])
 
   const isDashboard = activeView === 'dashboard'
   // on dashboard we hide sidebar and center content; allow the panel to grow
@@ -533,7 +530,7 @@ function App() {
               aria-expanded={commandOpen}
               aria-controls={commandListboxId}
               aria-autocomplete="list"
-              aria-activedescendant={visibleCommandItems[activeCommandIndex] ? `command-option-${visibleCommandItems[activeCommandIndex].id}` : undefined}
+              aria-activedescendant={visibleCommandItems[safeActiveCommandIndex] ? `command-option-${visibleCommandItems[safeActiveCommandIndex].id}` : undefined}
               aria-describedby={`${commandHelpTextId} ${commandStatusId}`}
               ref={commandInputRef}
             />
@@ -548,7 +545,7 @@ function App() {
                   className="command-palette-item"
                   id={`command-option-${item.id}`}
                   role="option"
-                  aria-selected={index === activeCommandIndex}
+                  aria-selected={index === safeActiveCommandIndex}
                   tabIndex={-1}
                   onClick={() => {
                     navigateToView(item.id)

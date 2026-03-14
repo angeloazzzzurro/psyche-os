@@ -8,6 +8,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
+    "web:dev": "npm --prefix web run dev",
+    "web:build": "npm --prefix web run build",
     "analyze": "tsx src/index.ts",
     "sync-prompts": "bash scripts/setup-prompts.sh",
     "guardrails:check": "bash scripts/guardrails.sh --check-staged",

@@ -27,13 +27,25 @@ const TOPIC_LABEL: Record<ContactTopic, string> = {
   other: 'Altro',
 }
 
+function sanitizeInput(value: string, maxLength = 500): string {
+  return value
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // control chars
+    .trim()
+    .slice(0, maxLength)
+}
+
 function buildNeutralDraft(form: ContactFormState) {
-  const topic = TOPIC_LABEL[form.topic]
-  const nameLine = form.name.trim() ? `Nome: ${form.name.trim()}` : 'Nome: non indicato'
-  const emailLine = form.email.trim() ? `Email: ${form.email.trim()}` : 'Email: non indicata'
-  const subjectLine = form.subject.trim() ? form.subject.trim() : 'Nessun oggetto specificato'
-  const contextLine = form.context.trim() ? form.context.trim() : 'Nessun contesto aggiuntivo'
-  const messageLine = form.message.trim() ? form.message.trim() : 'Nessun messaggio inserito'
+  const topic = TOPIC_LABEL[form.topic] ?? 'Altro'
+  const name = sanitizeInput(form.name, 100)
+  const email = sanitizeInput(form.email, 200)
+  const subject = sanitizeInput(form.subject, 200)
+  const context = sanitizeInput(form.context)
+  const message = sanitizeInput(form.message, 2000)
+  const nameLine = name ? `Nome: ${name}` : 'Nome: non indicato'
+  const emailLine = email ? `Email: ${email}` : 'Email: non indicata'
+  const subjectLine = subject ? subject : 'Nessun oggetto specificato'
+  const contextLine = context ? context : 'Nessun contesto aggiuntivo'
+  const messageLine = message ? message : 'Nessun messaggio inserito'
 
   return [
     'Formato neutro per domande/richieste',

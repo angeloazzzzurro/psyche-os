@@ -26,7 +26,7 @@ function computeStreak(): number {
   }
   const unique = [...new Set(dates)].sort().reverse()
   let streak = 0
-  let cursor = new Date()
+  const cursor = new Date()
   for (const d of unique) {
     const expected = cursor.toDateString()
     if (d === expected) {
@@ -50,10 +50,42 @@ function getDayKey(date = new Date()): string {
 function parseStoredJson<T>(raw: string | null, fallback: T): T {
   if (!raw) return fallback
   try {
-    return JSON.parse(raw) as T
+    const parsed: unknown = JSON.parse(raw)
+    // Must match the "shape" of the fallback (object vs array)
+    if (typeof parsed !== typeof fallback) return fallback
+    if (Array.isArray(fallback) !== Array.isArray(parsed)) return fallback
+    return parsed as T
   } catch {
     return fallback
   }
+}
+
+function mergeStageHistory(
+  current: StageHistoryStore,
+  stages: Array<{ id: string; score: number }>,
+  today: string,
+): StageHistoryStore {
+  let changed = false
+  const next: StageHistoryStore = { ...current }
+
+  for (const stage of stages) {
+    const list = [...(next[stage.id] ?? [])]
+    const existingIndex = list.findIndex((point) => point.day === today)
+
+    if (existingIndex >= 0) {
+      if (list[existingIndex].score !== stage.score) {
+        list[existingIndex] = { day: today, score: stage.score }
+        changed = true
+      }
+    } else {
+      list.push({ day: today, score: stage.score })
+      changed = true
+    }
+
+    next[stage.id] = list.slice(-30)
+  }
+
+  return changed ? next : current
 }
 
 function computeTrendDelta(history: StageHistoryPoint[]): number {
@@ -146,7 +178,7 @@ export default function DashboardView() {
       verify: 64,
     })
   })
-  const [stageHistory, setStageHistory] = useState<StageHistoryStore>(() => {
+  const [stageHistory] = useState<StageHistoryStore>(() => {
     return parseStoredJson<StageHistoryStore>(localStorage.getItem('psyche-traceability-history'), {})
   })
   const [trendWindowDays, setTrendWindowDays] = useState<7 | 30>(7)
@@ -163,10 +195,6 @@ export default function DashboardView() {
   useEffect(() => {
     localStorage.setItem('psyche-traceability-targets', JSON.stringify(stageTargets))
   }, [stageTargets])
-
-  useEffect(() => {
-    localStorage.setItem('psyche-traceability-history', JSON.stringify(stageHistory))
-  }, [stageHistory])
 
   const saveIntention = () => {
     const weekKey = `psyche-intention-${getWeekKey()}`
@@ -249,37 +277,18 @@ export default function DashboardView() {
     ]
   }, [intention, stats.active.length, stats.patterns.length, stats.progress, streak, t])
 
+  const stageHistoryWithToday = useMemo(() => {
+    return mergeStageHistory(stageHistory, baseStages, getDayKey())
+  }, [baseStages, stageHistory])
+
   useEffect(() => {
-    const today = getDayKey()
-    setStageHistory((current) => {
-      let changed = false
-      const next: StageHistoryStore = { ...current }
-
-      for (const stage of baseStages) {
-        const list = [...(next[stage.id] ?? [])]
-        const existingIndex = list.findIndex((point) => point.day === today)
-        if (existingIndex >= 0) {
-          if (list[existingIndex].score !== stage.score) {
-            list[existingIndex] = { day: today, score: stage.score }
-            changed = true
-          }
-        } else {
-          list.push({ day: today, score: stage.score })
-          changed = true
-        }
-
-        // Keep last 30 days only.
-        next[stage.id] = list.slice(-30)
-      }
-
-      return changed ? next : current
-    })
-  }, [baseStages])
+    localStorage.setItem('psyche-traceability-history', JSON.stringify(stageHistoryWithToday))
+  }, [stageHistoryWithToday])
 
   const traceabilityStages = useMemo<TraceabilityStage[]>(() => {
     return baseStages.map((stage) => {
       const target = stageTargets[stage.id] ?? 65
-      const history = (stageHistory[stage.id] ?? []).slice(-trendWindowDays)
+      const history = (stageHistoryWithToday[stage.id] ?? []).slice(-trendWindowDays)
       const trendDelta = computeTrendDelta(history)
       const status = getStageStatus(stage.score, target, trendDelta)
 
@@ -291,7 +300,7 @@ export default function DashboardView() {
         history,
       }
     })
-  }, [baseStages, stageHistory, stageTargets, trendWindowDays])
+  }, [baseStages, stageHistoryWithToday, stageTargets, trendWindowDays])
 
   const selectedStage = traceabilityStages.find((stage) => stage.id === selectedStageId) ?? traceabilityStages[0]
 

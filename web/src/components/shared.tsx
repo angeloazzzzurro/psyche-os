@@ -207,6 +207,16 @@ export function SectionHead({
   )
 }
 
+/** Strips characters that could be used for prompt injection */
+function sanitizeForPrompt(input: string): string {
+  return input
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // control chars
+    .replace(/\bignore\b.{0,60}\binstructions?\b/gi, '[…]') // classic injection pattern
+    .replace(/\bsystem\s*:/gi, 'system:')                   // system role spoofing
+    .trim()
+    .slice(0, 800) // hard cap — prevents oversized injection
+}
+
 /** Explore button — copies a ready-to-use AI prompt for deeper exploration */
 export function ExploreButton({
   finding,
@@ -220,12 +230,16 @@ export function ExploreButton({
   const { t } = useI18n()
   const [copied, setCopied] = useState(false)
 
+  const safeFinding = sanitizeForPrompt(finding)
+  const safeContext = context ? sanitizeForPrompt(context) : ''
+  const safeSources = sources ? sanitizeForPrompt(sources) : ''
+
   const prompt = [
     `I was analyzed by PSYCHE/OS, a digital psyche operating system that maps cognitive patterns across psychological dimensions.`,
     ``,
-    `One of the findings was: "${finding}"`,
-    context ? `\nContext: ${context}` : '',
-    sources ? `\nThis was derived from: ${sources}` : '',
+    `One of the findings was: "${safeFinding}"`,
+    safeContext ? `\nContext: ${safeContext}` : '',
+    safeSources ? `\nThis was derived from: ${safeSources}` : '',
     ``,
     `Please:`,
     `1. Explain the psychological basis of this finding in accessible terms`,

@@ -2,286 +2,404 @@
   "crossValidatedPatterns": [
     {
       "id": "CVP-001",
-      "label": "Infrastructure Friction Loop",
-      "confidence": 0.62,
-      "sources": [
-        "claude-code",
-        "codex",
-        "openclaw"
-      ],
+      "label": "Integrative Multi-Channel Synthesis as Epistemic Preference",
+      "confidence": 0.52,
+      "sources": ["claude-sessions"],
       "evidence": {
-        "claude-code": "Multiple sessions (12ebc646, 32861ca9, a02dcbdc, dd441a1c) end immediately upon encountering credit balance errors rather than resolving them",
-        "codex": "Session a02dcbdc shows tool uninstallation (brew uninstall) in response to credit error — removing capability rather than fixing the underlying issue",
-        "openclaw": "Session a843c829 shows escape/abort behavior upon OAuth token failure rather than troubleshooting"
+        "claude-sessions": "FusionClassifier concatenates audio+video embeddings; psyche-os aggregates multiple LLM backends and data sources; task management agent would integrate project context + urgency + dependencies; MiyazakiDecor integrates aesthetic and functional concerns in a single component name. The pattern appears independently across ML architecture, web system design, and aspirational tool design.",
+        "codex-sessions": "Source unavailable — no data extracted.",
+        "social-traces": "Source unavailable — no data extracted."
       },
-      "psychologicalInterpretation": "Trigger: Attempting to begin substantive technical work using AI tooling — Consequence: Sessions terminate before productive work begins due to billing errors, auth failures, or rate limits — preventing the stated goal of AI-assisted development",
+      "psychologicalInterpretation": "Single-channel analysis is consistently treated as insufficient. The architecture preference — combine rather than specialize — likely reflects a deeper epistemic stance: truth or fidelity requires convergence across channels, not depth in one. This may also function as a defense against reduction: against being understood through any single signal.",
       "dimension": "Psychological",
-      "archetypeResonance": [],
-      "counterPressure": "Sessions terminate before productive work begins due to billing errors, auth failures, or rate limits — preventing the stated goal of AI-assisted development"
+      "archetypeResonance": ["Synthesizer", "Integrator", "Alchemist"],
+      "counterPressure": "The single-channel images sub-project (FER2013, simplest) is the only completed deepML1 component. The multi-modal stub remains incomplete. The epistemic ideal of integration conflicts with the practical fact that single-channel is easier to finish. Integration may be more valued as architecture than as shipped artifact."
     },
     {
       "id": "CVP-002",
-      "label": "Delegation Without Scaffolding",
-      "confidence": 0.52,
-      "sources": [
-        "claude-code",
-        "codex",
-        "openclaw"
-      ],
+      "label": "Persistent State Scaffolding — Documentation Before and Around Action",
+      "confidence": 0.62,
+      "sources": ["claude-sessions"],
       "evidence": {
-        "claude-code": "Session 7a6b821c shows imperative command style with minimal specification and passive monitoring during AI execution for GitHub PR creation",
-        "codex": "Session f837776a shows abstract-to-concrete problem delegation with low verbosity and high trust in assistant for building an AI agent",
-        "openclaw": "Session e1432286 shows delegation of shell configuration (zshrc auto-start) to Claude, followed immediately by asking how to check what was done — suggesting the action was not personally understood"
+        "claude-sessions": "CLAUDE.md created in two parallel sessions on first day. codici.txt command log auto-synced to Notes. README.txt files in each deepML1 sub-project. psyche-os PR includes ProgressDiary and Timeline views specifically for temporal self-tracking. The pattern appears across personal tool configuration, project setup, and collaborative contribution.",
+        "codex-sessions": "Source unavailable — no data extracted.",
+        "social-traces": "Source unavailable — no data extracted."
       },
-      "psychologicalInterpretation": "Trigger: Starting a new AI-assisted project or workflow — Consequence: Minimal-instruction task delegation to AI with passive monitoring, but without building durable personal scaffolding — creating dependency without capability growth",
+      "psychologicalInterpretation": "Future self is treated as a potentially amnesiac external agent who requires context. Every action generates its own legibility layer. This is either high metacognitive maturity — ensuring continuability — or a pattern where the documentation layer substitutes for the action layer, producing well-structured incompleteness rather than rough but functional implementations.",
       "dimension": "Psychological",
-      "archetypeResonance": [],
-      "counterPressure": "Minimal-instruction task delegation to AI with passive monitoring, but without building durable personal scaffolding — creating dependency without capability growth"
+      "archetypeResonance": ["Archivist", "Cartographer"],
+      "counterPressure": "deepML1 known bugs (hardcoded labels, dummy datasets) are documented in CLAUDE.md Known Placeholders but show no resolution across sessions. Documentation of the broken state becomes the artifact, not the fix. The scaffolding can become load-bearing for the incomplete structure rather than a platform for building it out."
     },
     {
       "id": "CVP-003",
-      "label": "Aspirational Curation Without Consolidation",
-      "confidence": 0.48,
-      "sources": [
-        "claude-code",
-        "codex",
-        "openclaw"
-      ],
+      "label": "Automation as Friction Elimination Across the Work Stack",
+      "confidence": 0.58,
+      "sources": ["claude-sessions"],
       "evidence": {
-        "claude-code": "Twitter bookmarks show saving of LLM fine-tuning guides, multi-agent architecture content, Baudrillard/AI philosophy, and Extended Mind Thesis content",
-        "codex": "Multiple extraction analyses flag 'Bookmarks reflect aspiration or interest-signaling as much as genuine engagement' and 'saving ≠ reading ≠ applying'",
-        "openclaw": "The deepML1 project (emotion classification, multimodal) is visible in session 700e3d04 but bookmarked technical content (LoRA, QLoRA, scaling laws) does not appear to connect to active implementation sessions"
+        "claude-sessions": "Three distinct sessions request the same reduction of intentional steps: e1432286 (Claude auto-start request), f67035b0 (repeat auto-start request), 36c3b412 (screen sleep disabled permanently). Codex already auto-starts via zshrc. Commands auto-log to Notes. The pattern is consistent across different tool categories.",
+        "codex-sessions": "Source unavailable — no data extracted.",
+        "social-traces": "Source unavailable — no data extracted."
       },
-      "psychologicalInterpretation": "Trigger: Encountering technically or philosophically interesting AI content — Consequence: Content is saved (bookmarked) but there is no evidence of integration, application, or output — accumulation of reference material that does not close the loop to practice",
-      "dimension": "Psychological",
-      "archetypeResonance": [],
-      "counterPressure": "Content is saved (bookmarked) but there is no evidence of integration, application, or output — accumulation of reference material that does not close the loop to practice"
+      "psychologicalInterpretation": "The gap between forming an intention and executing it is experienced as costly. Reducing this gap through ambient systems — always-on AI, never-sleeping screen, auto-logging — suggests that the friction of tool activation disrupts a cognitive state worth preserving. The downstream expression, wanting AI to answer 'cosa faccio adesso?', reveals where the automation impulse leads when fully extended: outsourcing not just setup, but prioritization itself.",
+      "dimension": "Professional",
+      "archetypeResonance": ["Engineer", "System Optimizer"],
+      "counterPressure": "The aspired task management agent, which would externalize prioritization, has not been built despite the technical capability being present. The automation impulse is expressed in environment configuration but stops before delegating higher-order decisions. This may reflect appropriate skepticism about AI agency, or activation energy required for the harder build."
     },
     {
       "id": "CVP-004",
-      "label": "Projection onto Atlas (AI agent project)",
-      "confidence": 0.58,
-      "sources": [
-        "claude-code",
-        "openclaw"
-      ],
+      "label": "AI-Mediated Self-Knowledge as Serious Project",
+      "confidence": 0.55,
+      "sources": ["claude-sessions"],
       "evidence": {
-        "claude-code": "Atlas is described as 'Fleet Intelligence Agent' — a coordinating intelligence over physical infrastructure, precisely what the subject appears to lack in their own AI tool usage (multiple broken sessions, failed auth, abandoned tools)",
-        "openclaw": "Atlas configuration emphasizes structured role decomposition, security-first thinking, and constraint-bounded coordination — qualities that contrast with the subject's own pattern of minimal-specification delegation and session abandonment"
+        "claude-sessions": "psyche-os contributions specifically target the most personal-tracking layers (Dashboard = what to do now, ProgressDiary = daily record, Timeline = drift over time). The psyche-os vocabulary (cognitive genome, archetypes, neurodivergence screening) treats self-knowledge as an engineering problem. The subject contributes these personal tracking components to a shared cognitive profiling repository, not to a private project.",
+        "codex-sessions": "Source unavailable — no data extracted.",
+        "social-traces": "Source unavailable — no data extracted."
       },
-      "psychologicalInterpretation": "Type: golden_shadow. Systemic reliability and intelligent coordination projected onto Atlas (AI agent project).",
+      "psychologicalInterpretation": "The subject is simultaneously building infrastructure for cognitive self-profiling and — by virtue of working on psyche-os — potentially being profiled by it. Whether this recursion is intentional is unclear. The move to add personal tracking on top of the analytical substrate mirrors the subject's own documentation practices: create the framework first, then track movement through it.",
       "dimension": "Psychological",
-      "archetypeResonance": [],
-      "counterPressure": "golden_shadow projection: Systemic reliability and intelligent coordination"
+      "archetypeResonance": ["Self-Witness", "Systems Architect"],
+      "counterPressure": "The psyche-os system belongs to michelericco, not the subject. Personal tracking features were added to someone else's repository. Whether the profiling subject is the owner, the contributor, or an abstract user remains ambiguous — which means the self-knowledge infrastructure has an unclear beneficiary."
     },
     {
       "id": "CVP-005",
-      "label": "Projection onto Atlas security protocol / input validation constraints",
-      "confidence": 0.44,
-      "sources": [
-        "claude-code",
-        "openclaw"
-      ],
+      "label": "Security Consciousness Applied Selectively to Novel AI Agency",
+      "confidence": 0.48,
+      "sources": ["claude-sessions"],
       "evidence": {
-        "claude-code": "Atlas configuration repeatedly emphasizes security protocol and input validation as core operating rules across all openclaw source variants",
-        "openclaw": "The subject's own sessions show minimal security hygiene: OAuth tokens fail, credentials are unclear across accounts, uninstallation is used as a blunt response to access problems"
+        "claude-sessions": "f837776a frames aspirational AI agent project around Docker isolation. PR includes whitelist command injection prevention in scripts/_config.sh. Session 2f3212b6 asks about programming security. These three data points appear in different session contexts and are mutually consistent.",
+        "codex-sessions": "Source unavailable — no data extracted.",
+        "social-traces": "Source unavailable — no data extracted."
       },
-      "psychologicalInterpretation": "Type: shadow. Security consciousness and rigorous input validation projected onto Atlas security protocol / input validation constraints.",
-      "dimension": "Psychological",
-      "archetypeResonance": [],
-      "counterPressure": "shadow projection: Security consciousness and rigorous input validation"
+      "psychologicalInterpretation": "Security constraints are established as prerequisite to granting AI agency, not as afterthought. This is a functional expression of a philosophical commitment: autonomous action without containment is not trusted. The selectivity — new agents in Docker; existing tools in default mode — may reflect practical calibration rather than inconsistency. Known tools have earned ambient trust; novel actors require explicit containment.",
+      "dimension": "Professional",
+      "archetypeResonance": ["Guardian", "Architect"],
+      "counterPressure": "Existing AI tools (Claude Code, Codex) run with broad filesystem access in default permission mode. The security stance is applied to aspirational systems, not to the ones currently in use. This gap between stated and practiced security posture is real, though it may be pragmatically justified."
     },
     {
       "id": "CVP-006",
-      "label": "Projection onto Baudrillard/AI and Extended Mind Thesis bookmarks",
-      "confidence": 0.43,
-      "sources": [
-        "claude-code",
-        "openclaw"
-      ],
+      "label": "Emotion as the Chosen Computational Domain",
+      "confidence": 0.50,
+      "sources": ["claude-sessions"],
       "evidence": {
-        "claude-code": "Bookmarked content explicitly bridges Baudrillard simulacra, Andy Clark's extended mind thesis, and David Chalmers with LLM architecture — a sophisticated dual-register intellectual framework",
-        "openclaw": "The subject's actual AI interactions are uniformly instrumental and terse (CLI commands, single-line task delegation, SQL optimization queries) with no evidence of this philosophical framing in practice"
+        "claude-sessions": "deepML1's entire architecture is organized around emotion recognition: FER2013 (facial expressions), RAVDESS (speech emotion), multimodal fusion. The choice of this domain over more commercially common NLP, object detection, or tabular ML is a content decision. The multi-modal architecture mirrors a philosophical position: emotions are most faithfully represented when multiple channels converge.",
+        "codex-sessions": "Source unavailable — no data extracted.",
+        "social-traces": "Source unavailable — no data extracted."
       },
-      "psychologicalInterpretation": "Type: golden_shadow. Deep philosophical-technical integration projected onto Baudrillard/AI and Extended Mind Thesis bookmarks.",
+      "psychologicalInterpretation": "Building systems to recognize what others feel — to make the invisible legible through observable signals — is the technical analog of a broader preoccupation with understanding internal states. That this is directed at others' data (FER2013, RAVDESS are external datasets) rather than the subject's own emotional signals suggests either a deflective strategy (studying emotion in others avoids confronting it in oneself) or a genuine interest in the technical problem of affective sensing without personal resonance. The AI Designer identity aligns more with the former interpretation.",
       "dimension": "Psychological",
-      "archetypeResonance": [],
-      "counterPressure": "golden_shadow projection: Deep philosophical-technical integration"
+      "archetypeResonance": ["Empath-Engineer", "Decoder"],
+      "counterPressure": "No session connects the emotion classification work to the subject's own emotional state. The systems that recognize emotion (deepML1) and the systems that track the self (psyche-os diary, timeline) remain technically and personally separate."
     }
   ],
+
   "archetypeMapping": {
     "dominant": {
-      "archetype": "Builder",
-      "manifestation": "Atlas project: operational AI in railway logistics",
-      "shadow": "Infrastructure without completion",
-      "confidence": 0.65,
-      "evidence": "57 Atlas mentions, security-first design, structured role decomposition"
+      "archetype": "The Cartographer",
+      "manifestation": "Systematically maps territory before traversing it. Creates CLAUDE.md before coding, builds Dashboard before tracking progress, designs multi-sub-project architecture before training any model. The cognitive move is always: understand the landscape, create a legible representation of it, then act within that representation.",
+      "shadow": "Maps can substitute for the journey. The well-documented, architecturally coherent incomplete project is the Cartographer's characteristic failure mode — the map is complete but no one has traveled the territory it describes.",
+      "confidence": 0.62,
+      "evidence": "CLAUDE.md creation pattern, temporal stack in psyche-os (Dashboard→Diary→Timeline), deepML1 architecture documentation vs. implementation gap, zshrc layers, codici.txt as archival practice"
     },
     "secondary": {
-      "archetype": "Analyst",
-      "manifestation": "SQL optimization, direct instrumental queries, pattern-based thinking",
-      "shadow": "Analysis without synthesis",
+      "archetype": "The Synthesizer",
+      "manifestation": "Consistently chooses integration over specialization. FusionClassifier, multi-source psyche-os pipeline, multi-tool AI ecosystem, AI Designer identity (not engineer, not designer — both). The synthesizing move appears at every structural level.",
+      "shadow": "Integration without closure. Each synthesis becomes a new project to document rather than a finished thing. The FusionClassifier is a stub; the AI Designer identity appears in the CV but not yet in a single artifact that embodies both registers simultaneously.",
       "confidence": 0.58,
-      "evidence": "35 SQL mentions, query optimization, CTE usage across sessions"
+      "evidence": "FusionClassifier architecture, psyche-os multi-source design, parallel Claude+Codex deployment, MiyazakiDecor as technical-aesthetic fusion"
     },
     "emergent": {
-      "archetype": "Seeker",
-      "manifestation": "AI philosophy bookmarks, Extended Mind thesis, Baudrillard",
-      "shadow": "Aspiration without integration",
-      "confidence": 0.43,
-      "evidence": "Twitter bookmarks: philosophical-technical content not reflected in practice"
+      "archetype": "The Alchemist",
+      "manifestation": "Transforms raw signals (emotional data, shell commands, session transcripts) into structured meaning (trained classifiers, cognitive profiles, archival records). The transformation direction is consistently: observable behavior → latent internal state → legible representation. This is nascent — visible in project choice and architectural logic but not yet expressed in completed transformations.",
+      "shadow": "Opus without prima materia. The transformative apparatus is built (deepML1, psyche-os pipeline, codici.txt) but the actual transformations — trained models, completed profiles, synthesized knowledge — have not yet been produced from it.",
+      "confidence": 0.45,
+      "evidence": "deepML1 as incomplete emotion classifier, psyche-os as cognitive transformation pipeline, codici.txt as behavior-to-archive transformer — all apparatus, minimal output"
     },
     "goldenShadow": {
-      "archetype": "Integrator",
-      "manifestation": "Desired: seamless AI-human workflow without friction",
-      "shadow": "Current reality: tool adoption/abandonment cycles",
-      "confidence": 0.62,
-      "evidence": "Atlas as idealized coordinating intelligence vs fragmented tool interactions"
+      "archetype": "The Artist",
+      "manifestation": "Present in aesthetic gestures (MiyazakiDecor, Epidemic Sound samples, TouchDesigner .toe files, 224MB portfolio PDF) but never discussed, never connected to the technical work in any session. The Artist is doing things off-session that the technical persona does not integrate.",
+      "shadow": "The Artist's shadow is the fear that the technical work is not beautiful enough — that the Ghibli aesthetic cannot survive contact with production code. MiyazakiDecor may be testing whether aesthetic naming can survive in a functional codebase without being stripped out.",
+      "confidence": 0.40,
+      "evidence": "MiyazakiDecor as isolated aesthetic gesture, TouchDesigner on Desktop with no session discussion, Epidemic Sound samples, angeloazzzzurro portfolio PDF — all present as artifacts without any session-level engagement"
     }
   },
+
   "unifiedDimensionalScores": {
-    "Professional": {
-      "score": 0.88,
-      "depth": 0.88,
-      "keyFindings": [
-        "Transactional Infrastructure Management",
-        "Instrumental Tool Use",
-        "Agentic AI-driven developer workflow",
-        "Operational AI deployment in industrial logistics"
-      ],
-      "blindSpot": ""
-    },
     "Psychological": {
-      "score": 0.85,
-      "depth": 0.85,
+      "depth": 0.55,
+      "score": 0.62,
       "keyFindings": [
-        "Blocked Action / Friction",
-        "Delegation of cognitive load to AI"
+        "Consistent drive to externalize and document cognitive state (CLAUDE.md, codici.txt, Diary, Timeline)",
+        "Self treated as a system to be profiled and made legible, not as irreducible interiority",
+        "Automation impulse extends toward outsourcing prioritization — 'cosa faccio adesso?' directed at AI",
+        "Documentation-substitution pattern: articulating incompleteness may reduce urgency to resolve it"
       ],
-      "blindSpot": ""
-    },
-    "Creative": {
-      "score": 0.3,
-      "depth": 0.3,
-      "keyFindings": [],
-      "blindSpot": "Limited signal in dataset"
-    },
-    "Social": {
-      "score": 0.3,
-      "depth": 0.3,
-      "keyFindings": [],
-      "blindSpot": "Limited signal in dataset"
+      "convergence": "Across session types (tool setup, ML project, web contribution), the same cognitive signature appears: create a legibility layer before acting, treat future self as context-hungry external agent, prefer integration over specialization.",
+      "blindSpot": "No evidence of how the subject processes difficulty, frustration, or failure beyond practical problem-solving. The emotional register of the sessions is surface-level functional. No session reaches the layer beneath the technical frame."
     },
     "Spiritual": {
-      "score": 0.3,
-      "depth": 0.3,
-      "keyFindings": [],
-      "blindSpot": "Limited signal in dataset"
+      "depth": 0.28,
+      "score": 0.38,
+      "keyFindings": [
+        "Ghibli as named aesthetic ideal embedded in functional code — organic beauty, layered depth, found magic",
+        "codici as archival practice elevating shell commands to manuscript status",
+        "Self-as-operating-system metaphor: psyche is engineerable and improvable",
+        "Multi-modality as epistemic completeness — truth requires channel convergence"
+      ],
+      "convergence": "The spiritual dimension is present as implicit philosophy rather than explicit practice. The Miyazaki reference and the codici naming share a sensibility: the mundane technical action participates in something larger and more beautiful than its function.",
+      "blindSpot": "Only one source available, and that source (Claude Code CLI) is structurally biased toward the technical and practical. Whether these aesthetic-philosophical gestures represent a deeper orientation or decorative naming choices cannot be determined from this data alone."
     },
     "Anthropological": {
-      "score": 0.3,
-      "depth": 0.3,
-      "keyFindings": [],
-      "blindSpot": "Limited signal in dataset"
+      "depth": 0.30,
+      "score": 0.40,
+      "keyFindings": [
+        "Italian-Chinese name duality (Claudia / Xia Jie Xin, angeloazzzzurro / xiajiayi) suggests code-switching and identity navigation across cultural registers",
+        "galilux.edu.it suggests Italian institutional context; Europe/Rome timezone",
+        "Software tools chosen as cultural objects: codici (Italian manuscripts), Ghibli (Japanese animation), psyche-os (Western psychological vocabulary)",
+        "Game ecology (RimWorld, Civilization V, Football Manager) reflects cultural investment in simulating systemic agency and resource management"
+      ],
+      "convergence": "Cultural objects are chosen with semantic weight — naming patterns (codici, MiyazakiDecor, angeloazzzzurro) consistently reference non-English, non-utilitarian cultural registers.",
+      "blindSpot": "Without social traces or codex sessions, the broader social and cultural context is almost entirely invisible. The anthropological dimension is inferred from naming choices and file artifacts, not from social behavior or self-presentation."
+    },
+    "Social": {
+      "depth": 0.25,
+      "score": 0.32,
+      "keyFindings": [
+        "Contributing to michelericco/psyche-os as collaborator without ownership — status in motion, not established",
+        "AI tools function as primary social-cognitive partners in sessions; no peer exchanges visible",
+        "Relationship with Michele Ricco is structurally important but entirely opaque from available data",
+        "Professional self-presentation (FULL_VERSION CV, 224MB portfolio) suggests active positioning"
+      ],
+      "convergence": "The only social relationship visible in sessions is with AI (Claude Code, Codex). Human collaboration appears only as a repository URL and a PR target.",
+      "blindSpot": "Social behavior is almost entirely absent from the available source. The Social dimension cannot be responsibly scored without social-trace data. This score should be treated as a lower bound."
+    },
+    "Creative": {
+      "depth": 0.42,
+      "score": 0.50,
+      "keyFindings": [
+        "TouchDesigner + Epidemic Sound suggests active audio-visual generative practice — entirely off-session",
+        "MiyazakiDecor as deliberate aesthetic-in-code gesture",
+        "AI Designer identity claims a creative-technical synthesis position",
+        "angeloazzzzurro portfolio PDF (224MB) suggests substantial design output exists somewhere"
+      ],
+      "convergence": "Creative practice appears to exist in a separate register from the technical work visible in Claude Code sessions. The aesthetic gestures that do appear in technical work (MiyazakiDecor, naming choices) function as seeds of integration rather than full expressions.",
+      "blindSpot": "All creative artifacts are referenced from Desktop listings, not from sessions. What the subject actually creates with TouchDesigner, what the portfolio contains, and how creative and technical practices relate to each other — all of this is a signal gap. The creative score is speculative."
+    },
+    "Professional": {
+      "depth": 0.65,
+      "score": 0.60,
+      "keyFindings": [
+        "AI Designer professional identity active (CV, portfolio), but observed work is ML engineering and web development",
+        "Multi-sub-project discipline (deepML1) with known implementation gaps persisting across sessions",
+        "Fluent adoption of complex toolchains (Claude Code, Codex, PyTorch, React/TS, gh CLI) over short time periods",
+        "Security-aware code contributions (injection prevention, whitelist validation) in PR output"
+      ],
+      "convergence": "Professional competence is observable in specific artifacts: PR with security hardening, multi-sub-project ML architecture, React component design, GitHub workflow fluency. The AI Designer label is the claimed identity; the observed practice is broader and more technical.",
+      "blindSpot": "The gap between the claimed AI Designer identity and the observed ML+web+generative practice is unresolved. Whether this reflects under-representation of design work in Claude Code sessions or an aspirational label the actual work has not yet matched is not determinable from this source."
     }
   },
+
   "topPotentials": [
     {
       "rank": 1,
-      "label": "Tool Adoption and Abandonment Cycle",
-      "state": "Active",
-      "description": "Cycle type: Sabotage. Initiation: Begin new AI tool session with a concrete task goal (PR creation, agent building, terminal configuration) → Friction encounter: Hit billing limit, auth error, or rate limit before task completes → Abort response: Exit session, uninstall tool, or attempt credential reset without systematic resolution",
-      "confidence": 0.65,
-      "crossSourceValidation": "Detected with confidence 0.65 across sources.",
-      "actionable": "Friction encounter: Hit billing limit, auth error, or rate limit before task completes"
+      "label": "Multi-modal Affective Interface Architecture",
+      "state": "Latent",
+      "description": "The convergence of emotion recognition engineering (deepML1's three-channel architecture), cognitive profiling contribution (psyche-os), AI Designer identity, and aesthetic coding sensibility positions a specific and unusual capability: building interfaces that sense, model, and respond to emotional state — not as a feature but as the organizing principle. This is not merely 'UX with ML' but a genuinely integrative design practice with a coherent theoretical base.",
+      "confidence": 0.52,
+      "crossSourceValidation": "Visible only through claude-sessions. The convergence is across session types within that source (ML sessions + psyche-os sessions + aesthetic sessions), not across source families. Requires social-traces and codex data to validate. Confidence should be treated as provisional.",
+      "actionable": "The activation surface is deepML1: completing the multimodal classifier (fixing hardcoded labels and replacing the dummy dataset loader) produces the first real output of the full architecture. Without a trained model, the capability exists only as documentation. The bridge from documented-architecture to functional-classifier is the specific leverage point — not career planning or identity articulation."
     },
     {
       "rank": 2,
-      "label": "Aspiration-Accumulation Without Integration Cycle",
-      "state": "Active",
-      "description": "Cycle type: Avoidance. Exposure: Encounter high-quality technical or philosophical AI content on Twitter/YouTube → Curation: Bookmark or save content for later reference under organized categories (AI/ML, Philosophy) → Non-return: No evidence of revisiting, applying, or synthesizing saved material into active projects",
-      "confidence": 0.51,
-      "crossSourceValidation": "Detected with confidence 0.51 across sources.",
-      "actionable": "Curation: Bookmark or save content for later reference under organized categories (AI/ML, Philosophy)"
+      "label": "Personal Cognitive Tracking Infrastructure",
+      "state": "Emerging",
+      "description": "The Dashboard→ProgressDiary→Timeline temporal stack added to psyche-os represents a working theory of personal temporal self-knowledge. The design is complete — views exist, navigation works. What it needs is use. Actual diary entries, actual timeline data, actual observed drift. The infrastructure is built; the practice of populating it is not yet visible in the data.",
+      "confidence": 0.55,
+      "crossSourceValidation": "Only claude-sessions. The psyche-os PR confirms the infrastructure exists. Whether the subject uses it is unknown from available data.",
+      "actionable": "The leverage surface is not adding more features but adopting the existing ones as a live practice. The gap is behavioral, not technical: starting the practice. Seven consecutive diary entries would generate the first real timeline data point."
     },
     {
       "rank": 3,
-      "label": "Delegation-Dependency Oscillation",
-      "state": "Active",
-      "description": "Cycle type: Avoidance. High-trust delegation: Assign complex or configuration-level task to AI with minimal specification → Passive observation: Monitor AI execution without building personal understanding of what is being done → Capability gap discovery: Realize (e.g., asking how to check zshrc after Claude edits it) that the action was not personally internalized",
-      "confidence": 0.47,
-      "crossSourceValidation": "Detected with confidence 0.47 across sources.",
-      "actionable": "Passive observation: Monitor AI execution without building personal understanding of what is being done"
+      "label": "Autonomous AI Work-Coordination System",
+      "state": "Latent",
+      "description": "The task management agent design (Docker + Claude API + SQLite) has a complete conceptual architecture and the required technical stack is within reach. The felt need ('cosa faccio adesso?') is real and recurring. The activation energy gap is not capability but prioritization — which is precisely what the agent is designed to solve. The meta-irony is functional: the tool that would resolve the prioritization problem is itself deprioritized.",
+      "confidence": 0.48,
+      "crossSourceValidation": "Only claude-sessions, specifically f837776a. Single session. Cannot cross-validate. Confidence is low as a result.",
+      "actionable": "The first runnable version does not require Docker or SQLite. It requires a single Claude API call that takes a plain-text list of current projects and known blockers and returns a sequenced recommendation. That is approximately 50 lines of Python. The full architecture can follow if the primitive version proves useful in practice."
+    },
+    {
+      "rank": 4,
+      "label": "Systematic Tool-Adoption Documentation Practice",
+      "state": "Expressed",
+      "description": "CLAUDE.md, codici.txt, README.txt — already working, already generating value. The practice of making tools legible to future self across context switches is functional and consistent. It predates Claude Code adoption. This is not potential; it is expressed behavior.",
+      "confidence": 0.72,
+      "crossSourceValidation": "Consistent across all session types within claude-sessions. The practice predates Claude Code (Codex sessions referenced as prior work; CLAUDE.md created immediately at Claude Code adoption).",
+      "actionable": "This potential is already active. The only leverage is ensuring it remains discriminating: documenting what is useful to future context rather than using documentation as a substitute for resolving what needs resolution."
+    },
+    {
+      "rank": 5,
+      "label": "Procedural Aesthetic in Technical Artifact",
+      "state": "Emerging",
+      "description": "MiyazakiDecor is a seed. The AI Designer identity and the TouchDesigner/Epidemic Sound practice represent the creative register. The convergence of these two streams — making technical systems that carry an aesthetic philosophy structurally, not decoratively — is a distinctive position in a field dominated by either pure utility or surface-level skinning.",
+      "confidence": 0.42,
+      "crossSourceValidation": "Only claude-sessions, and MiyazakiDecor is a single data point within that source. TouchDesigner is a Desktop artifact with no session context. Social-traces and codex data would substantially change the confidence in either direction.",
+      "actionable": "The question is whether MiyazakiDecor remains an isolated gesture or becomes a design language. The leverage surface is producing one finished artifact where the aesthetic philosophy is structurally present — a UI, a visualization, a generative piece — not naming more components after Ghibli films."
     }
   ],
+
   "narrativeArc": {
-    "currentChapter": "Operational AI Integration",
-    "tension": "High ambition for AI-driven workflows meets persistent infrastructure friction and tool abandonment cycles",
-    "resolution": "Building Atlas as a domain-specific AI agent while developing personal scaffolding for sustained tool use",
-    "lifePhases": [
+    "currentChapter": "Infrastructure Without Inhabitant",
+    "description": "The subject has built — or is building — a coherent set of systems: a multi-modal emotion classifier, a cognitive self-tracking interface, a multi-tool AI work environment, an automated command archive. The architecture of each is internally consistent and well-documented. But none of the systems have produced their primary artifact: deepML1 has no trained model, psyche-os diary and timeline have no entries, the task agent is unbuilt, the portfolio remains a PDF on a Desktop. The current chapter is characterized by sophisticated scaffolding in search of the thing the scaffolding was built for.",
+    "previousChapters": [
+      "Tool adoption and environment configuration (Feb 12 — multiple onboarding sessions, auth failures, Claude/Codex co-deployment established)",
+      "ML architecture design and deepML1 setup (late Jan / early Feb — three-sub-project architecture created, known bugs documented but not fixed)",
+      "Creative-technical practice development (pre-session — TouchDesigner, Epidemic Sound, Adobe CC, design portfolio established before Claude Code adoption)"
+    ],
+    "tensionPoint": "The documentation and scaffolding practice that makes work legible and continuable also generates a kind of completion satisfaction that may reduce urgency to produce the primary artifact. CLAUDE.md is a finished thing; the trained model it documents is not. This is not laziness — it reflects a genuine ambiguity about which layer of the work is the work.",
+    "possibleResolutions": [
+      "Complete one primary artifact end-to-end: train a working multimodal emotion classifier, or use the psyche-os diary daily for a week. Establish what finished feels like for this profile.",
+      "Reframe the infrastructure itself as the artifact: the documentation practice, the self-tracking stack, and the AI work environment treated as a designed system to be refined and published, not as scaffolding for something else.",
+      "Integrate the creative register (TouchDesigner, aesthetic sensibility) directly into the technical output — produce one thing that the Artist and the Cartographer built together, rather than keeping them in separate runtime contexts."
+    ]
+  },
+
+  "directionalVector": {
+    "summary": "The evidence points toward a consistent structural pattern: sophisticated architectural thinking that produces well-documented systems with incomplete implementations. The directional vector is not toward more exploration or more systems — there are enough of those. It is toward embodied completion of one artifact that crosses the line from legible-architecture to functional-output. The highest-leverage movement is from interiority and abstraction toward publication and embodiment, specifically through completing something small enough to actually finish. This reading is substantially constrained by the absence of codex-sessions and social-traces data — it should be treated as a working hypothesis, not a profile conclusion.",
+    "coordinateSystem": "Each axis runs from -1.0 at the left pole to +1.0 at the right pole. 'current' is where the profile appears to sit now. 'recommendedDrift' is the evidence-based direction of movement, not generic advice.",
+    "axes": [
       {
-        "label": "Railway Domain Expert",
-        "period": "Pre-AI",
-        "theme": "Deep domain knowledge accumulation"
+        "axis": "Exploration <-> Consolidation",
+        "leftPole": "open exploration, option generation, restarting",
+        "rightPole": "closure, shipping, embodied consolidation",
+        "current": -0.45,
+        "recommendedDrift": 0.35,
+        "rationale": "Multiple active systems (deepML1 ×3 sub-projects, psyche-os contributions, task agent concept, TouchDesigner practice) with no completed primary artifacts in the session record. The unresolved bugs in deepML1 are 6+ weeks old and documented but not fixed.",
+        "evidence": [
+          "deepML1: images 'COMPLETO', audio bug documented, multimodal stub — only the simplest finished",
+          "Task management agent conceived but not built despite technical capability being present",
+          "psyche-os Dashboard/Diary/Timeline built but not populated with actual tracking data",
+          "CLAUDE.md Known Placeholders section persists without resolution across sessions"
+        ]
       },
       {
-        "label": "Tool Explorer",
-        "period": "2024-2025",
-        "theme": "Instrumental AI adoption with high friction"
+        "axis": "Interiority <-> Publication",
+        "leftPole": "private incubation, internal richness, low external proof",
+        "rightPole": "public articulation, publication, visible artifacts",
+        "current": -0.50,
+        "recommendedDrift": 0.30,
+        "rationale": "The session record is rich with internal work (ML training setup, private command logging, documentation-for-self) and sparse on external artifacts. The PR to psyche-os is the only visible public output. The 224MB portfolio exists as a file on a Desktop, not a published URL.",
+        "evidence": [
+          "codici.txt syncs to Apple Notes (personal), not to a public repository or shared knowledge base",
+          "Only one PR visible across all sessions (psyche-os feat/dashboard-diary-timeline-ui)",
+          "angeloazzzzurro portfolio exists as PDF on Desktop — not yet deployed",
+          "psyche-os profiling contribution goes to michelericco's repo, reducing legibility of the subject's own contribution"
+        ]
       },
       {
-        "label": "Agent Architect",
-        "period": "2025-present",
-        "theme": "Atlas: operational AI in industrial logistics"
+        "axis": "Abstraction <-> Embodiment",
+        "leftPole": "conceptual modeling and symbolic interpretation",
+        "rightPole": "implementation in body, routine, environment, and finished artifact",
+        "current": -0.40,
+        "recommendedDrift": 0.45,
+        "rationale": "The conceptual architecture of each project is well-formed (FusionClassifier design, Dashboard→Diary→Timeline theory of temporal self-knowledge, Docker+Claude API+SQLite agent stack). The embodied implementations are absent: no trained models, no diary entries, no agent, no portfolio published.",
+        "evidence": [
+          "FusionClassifier is architecturally designed but DummyMultimodalDataset returns random tensors",
+          "Temporal self-tracking stack built; diary not yet a live practice",
+          "Task agent: conceptual architecture clear, activation energy gap persists",
+          "Security practices: Docker isolation stated for new agents; existing tools use default mode"
+        ]
+      },
+      {
+        "axis": "Autonomy <-> Alliance",
+        "leftPole": "full sovereignty and self-direction",
+        "rightPole": "selective alliance, collaborative amplification, co-regulation",
+        "current": -0.20,
+        "recommendedDrift": 0.15,
+        "rationale": "The subject works primarily autonomously on personal ML projects. The psyche-os contribution represents selective alliance. The recurring 'cosa faccio adesso?' directed at AI suggests some co-regulation of prioritization is already wanted, but through AI rather than human collaboration.",
+        "evidence": [
+          "deepML1 is solo, personal, unshared",
+          "psyche-os contribution is collaborative but role (contractor, friend, co-founder) is opaque",
+          "AI tools function as primary thinking partners — more alliance with AI than with humans in the session record",
+          "Task agent aspiration is AI co-regulation of work order, not human collaboration"
+        ]
+      },
+      {
+        "axis": "Input <-> Expression",
+        "leftPole": "intake, research, observation, accumulation",
+        "rightPole": "expression, articulation, distribution, release",
+        "current": -0.55,
+        "recommendedDrift": 0.40,
+        "rationale": "Heavy intake: command logging, CLAUDE.md context seeding, /init project scanning, psyche-os pipeline consuming source data, emotion recognition consuming external datasets. Expression layer is thin: one PR, one portfolio PDF, no published models, no documentation published externally. The accumulation apparatus is significantly more developed than any distribution apparatus.",
+        "evidence": [
+          "Every tool interaction generates intake records (codici.txt, CLAUDE.md)",
+          "deepML1 accumulates training data and architectural documentation but no trained weights exist",
+          "psyche-os PR is the primary expression artifact in the entire session record",
+          "Portfolio PDF is 224MB of accumulated design work with no published deployment visible"
+        ]
+      }
+    ],
+    "heading": {
+      "from": "Sophisticated infrastructure builder with well-documented, architecturally coherent systems at various stages of incompletion",
+      "toward": "Maker of finished, functional artifacts that embody the architectural thinking — shipped models, live practices, public interfaces",
+      "through": "Completing one primary artifact end-to-end. The specific candidate with the highest leverage-to-activation-energy ratio is fixing deepML1/audio/train.py line 23 (the hardcoded label bug) — a documented, isolated, small fix that unblocks a trained audio classifier. This is not the most ambitious path but it establishes completion as a practiced behavior rather than a documented aspiration.",
+      "confidence": 0.50,
+      "justification": "Every dimension score and pattern points in the same direction: the profile's weakest axis is Abstraction→Embodiment and Input→Expression. The documentation practice is strong; the translation of documented architectures into functional outputs is the consistent gap. This appears in ML projects, self-tracking, and tool building simultaneously. Heading confidence is moderate because only one source family was available — social-traces and codex-sessions would either strengthen this reading or introduce complicating evidence that changes the vector."
+    },
+    "constraints": [
+      "Rate limits and billing constraints are a real structural friction point — two sessions ended at critical workflow moments (staged files before PR commit in 7a6b821c, sudo command in 36c3b412). This is not a motivational constraint but a practical one that interrupts completion momentum.",
+      "deepML1 is a solo project with no external accountability structure — documented bugs persist because there is no external forcing function to resolve them.",
+      "Contributing to michelericco/psyche-os means the personal tracking infrastructure depends on a relationship and repository whose future direction is not controlled by the subject.",
+      "Multi-project span (deepML1 ×3, psyche-os, task agent, creative work) makes 'next action' genuinely ambiguous — which is the actual source of the 'cosa faccio adesso?' question, not a character deficit."
+    ],
+    "attractors": [
+      "Multi-channel integration — each new project gravitates toward a multi-source architecture regardless of domain",
+      "Self-legibility — the pull toward making one's own state, history, and trajectory visible and navigable through external systems",
+      "Ambient automation — reducing friction between intention and execution at every available layer of the work environment",
+      "Aesthetic-technical synthesis — the Miyazaki gesture keeps appearing; something is being pulled toward integration of the creative and technical registers that has not yet found its form"
+    ],
+    "antiVectors": [
+      "Adding more sub-projects to deepML1 or more views to psyche-os before any existing component produces primary output",
+      "Extending the documentation and logging infrastructure further before the documented systems are functional",
+      "Building the full Docker+SQLite+Claude API task management agent before testing whether a minimal prototype solves the actual felt need",
+      "Treating 'AI Designer' as a positioning problem (CV revision, portfolio redesign) before producing one artifact that embodies the integrated identity"
+    ],
+    "nextExperimentSurfaces": [
+      {
+        "surface": "Artifact",
+        "whyThisSurface": "The gap between documented architecture and functional output is the dominant structural pattern across all projects. Producing one artifact that crosses this line establishes completion as a practiced behavior. The smallest available candidate is deepML1/audio/train.py line 23 — fixing the hardcoded label bug is a documented, isolated, small change.",
+        "successSignal": "A trained audio emotion classifier with non-hardcoded labels, even at low accuracy, running on actual RAVDESS data",
+        "failureSignal": "Fix is made but the training loop is not run to completion — another documented-but-not-executed change added to the Known Placeholders equivalent"
+      },
+      {
+        "surface": "Workflow",
+        "whyThisSurface": "The 'cosa faccio adesso?' question recurs across sessions. The existing prioritization workflow is: ask AI in the moment. Building a minimal version of the task agent — not Docker, not SQLite, just a plain text file and a Claude API call — tests whether the felt need is real and what form it actually requires.",
+        "successSignal": "A simple script used on more than three separate days that produces a sequenced recommendation and reduces the frequency of the open-ended prioritization question",
+        "failureSignal": "Script is built but not used more than once — the need was for the act of building it, not the tool itself"
+      },
+      {
+        "surface": "Public Interface",
+        "whyThisSurface": "The portfolio exists as a 224MB PDF on a Desktop. Publishing it in any form converts private accumulation to public expression — the highest-leverage movement on the Input→Expression axis without requiring any new creative work.",
+        "successSignal": "A URL exists where the portfolio can be accessed by someone other than the subject",
+        "failureSignal": "A new, more complete version of the portfolio begins being built instead of the existing one being published"
+      },
+      {
+        "surface": "Body",
+        "whyThisSurface": "The psyche-os ProgressDiary and Timeline exist as functional infrastructure. Using them as a daily practice generates the temporal data that the Timeline was built to display. 'Body' here means an embodied routine that uses the tracking system, not further development of the system itself.",
+        "successSignal": "Seven consecutive days of diary entries in the ProgressDiary, generating the first real data visible in the Timeline",
+        "failureSignal": "The infrastructure is extended (more features, additional views) without the diary being used as a live practice"
       }
     ]
   },
-  "directionalVector": {
-    "summary": "From fragmented tool use toward integrated AI-operational workflows anchored in the railway/logistics domain",
-    "momentum": 0.6,
-    "obstacles": [
-      "Infrastructure friction loops",
-      "Credential management",
-      "Delegation without personal scaffolding"
-    ]
-  },
+
   "modelLimitations": [
-    "40% of documents were too short for meaningful psychological inference",
-    "Emotional tone data is sparse — most interactions are purely technical",
-    "No personal/reflective writing in sources — only operational logs",
-    "IQ estimate not applicable — insufficient cognitive signal in this dataset"
+    "Only one of three source families (claude-sessions) contributed usable data. codex-sessions were inaccessible and social-traces were entirely absent from the input. The cross-source synthesis is therefore a single-source analysis that cannot perform genuine cross-validation. All crossValidatedPatterns are patterns validated across session types within one source, not across independent source families. The label 'cross-validated' in this document should be read as 'internally consistent across session contexts within a single source.'",
+    "The claude-sessions source is structurally biased toward technical and professional behavior. It captures almost nothing of the subject's emotional life, social relationships, creative practice (beyond file artifacts), physical context, or goals outside software work. Any psychological interpretation is necessarily over-indexed on observable technical behavior.",
+    "The 25 synthetic test sessions inflate the document count without contributing behavioral signal. Excluding them, the actual behavioral record covers approximately 15 real sessions across 27 days, with dense activity concentrated in two clusters (Feb 12 and Mar 6–11). This is a thin record from which to derive stable patterns.",
+    "The relationship with Michele Ricco and the nature of the psyche-os collaboration are entirely opaque. This substantially underdetermines any interpretation of the social dimension and the self-knowledge dimension (who is the intended subject of the profiling system).",
+    "The codex sessions from Jan 19 and Feb 2 — which would contain the pre-Claude work history — were too large to extract, creating a blind spot in the earlier professional and creative history. The current analysis cannot account for what was built or decided before Claude Code adoption.",
+    "The absence of social-traces (bookmarks, YouTube watch history) means the intellectual and cultural interest landscape is almost entirely invisible. The profile constructed here describes what someone does with technical tools; it says almost nothing about what they read, watch, or think about outside of active coding sessions.",
+    "The subject may have completed deepML1 bugs, published the portfolio, or begun the task agent in the interval between session recording and this synthesis. The session record is a snapshot, not a current state assessment.",
+    "Jungian archetype mappings in this document are grounded in behavioral patterns from technical sessions, not from projective material, dream content, or interpersonal dynamics. They should be read as behavioral tendencies with Jungian labels, not as depth-psychological findings."
   ],
-  "simulacrumIndex": 0.35,
-  "sensorData": [
-    {
-      "timestamp": "2026-03-14T08:00:00Z",
-      "source": "Apple Watch",
-      "heartRate": 68,
-      "steps": 1200,
-      "sleepHours": 7.2,
-      "temperature": 36.5,
-      "stressLevel": 22,
-      "notes": "Riposo notturno buono"
-    },
-    {
-      "timestamp": "2026-03-14T12:00:00Z",
-      "source": "Fitbit",
-      "heartRate": 82,
-      "steps": 5400,
-      "sleepHours": 0,
-      "temperature": 36.7,
-      "stressLevel": 35,
-      "notes": "Passeggiata post pranzo"
-    },
-    {
-      "timestamp": "2026-03-14T18:00:00Z",
-      "source": "Oura Ring",
-      "heartRate": 74,
-      "steps": 8000,
-      "sleepHours": 0,
-      "temperature": 36.6,
-      "stressLevel": 28,
-      "notes": "Attività fisica moderata"
-    }
-  ]
+
+  "simulacrumIndex": 0.62
 }
