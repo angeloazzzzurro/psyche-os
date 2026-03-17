@@ -7,8 +7,6 @@ import tailwindcss from '@tailwindcss/vite'
 const base = process.env['VITE_BASE_PATH'] ?? '/psyche-os/'
 
 export default defineConfig({
-  // Use relative asset URLs so static deploys under subpaths keep working.
-  base: './',
   plugins: [react(), tailwindcss()],
   base,
   build: {
